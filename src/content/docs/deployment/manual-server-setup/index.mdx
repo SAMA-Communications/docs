@@ -1,0 +1,216 @@
+---
+title: Manual Server Setup
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "Overview" },
+    { text: "Manual Server Setup" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { LinkCard, Steps } from "@astrojs/starlight/components";
+
+## Basic Dependency Stack
+
+To fully launch the server, you need to start four basic services. Let's do this locally:
+
+- `sama-server` - core API service.
+- `sama-client` - frontend Web application.
+- `sama-push-daemon` - push notifications service.
+- `sama-push-queue-board` - web dashboard to monitor push notifications service queue.
+
+<LinkCard
+  title="Deploying SAMA chat server stack: a comprehensive guide"
+  href="https://medium.com/sama-communications/deploying-sama-chat-server-stack-a-comprehensive-guide-294ddb9a2d78"
+/>
+
+## sama-server
+
+<LinkCard
+  title="SAMA-Communications/sama-client - GitHub"
+  href="https://github.com/SAMA-Communications/sama-client"
+/>
+
+<Steps>
+
+1. Make sure you have Node 18 installed.
+2. Clone the repo.
+
+   ```bash
+   git clone git@github.com:SAMA-Communications/sama-server.git
+   cd sama-server
+   ```
+
+3. Create env file from the template.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. For run dependant services (MongoDB, Minio, Redis) run:
+
+   ```bash
+   docker-compose up
+   ```
+
+5. Open http://localhost:9011/access-keys and login using `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD` from `docker-compose.yml` file. Create Access Keys and set `MINIO_ACCESS_KEY` and `MINIO_SECRET_KEY` in `.env` file.
+6. ```bash
+   npm install to install dependencies
+   ```
+7. Run DB migrations.
+   ```bash
+   npm run migrate-mongo-up
+   ```
+8. Run server.
+   ```bash
+   npm run start
+   ```
+
+</Steps>
+
+## sama-client
+
+<LinkCard
+  title="SAMA-Communications/sama-client - GitHub"
+  href="https://github.com/SAMA-Communications/sama-client"
+/>
+
+<Steps>
+
+1. Clone the repo.
+
+   ```bash
+   git clone git@github.com:SAMA-Communications/sama-client.git
+   cd sama-client
+   ```
+
+2. Create env file from the template.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Generate VAPID keys via
+
+   ```bash
+   npx web-push generate-vapid-keys
+   ```
+
+   And set Public Key to `REACT_APP_PUBLIC_VAPID_KEY` in .env file
+
+4. Install dependencies.
+
+   ```bash
+   npm install
+   ```
+
+5. Run server.
+
+   ```bash
+   npm run start
+   ```
+
+6. access http://localhost:3000 in your browser
+
+</Steps>
+
+## sama-push-deamon
+
+<LinkCard
+  title="SAMA-Communications/sama-push-daemon - GitHub"
+  href="https://github.com/SAMA-Communications/sama-push-daemon"
+/>
+
+<Steps>
+
+1. Clone the repo.
+
+   ```bash
+   git clone git@github.com:SAMA-Communications/sama-push-deamon.git
+   cd sama-push-deamon
+   ```
+
+2. Create env file from the template.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. From the previous step when you generated VAPID keys, set Public Key to `PUBLIC_VAPID_KEY` and Private Key to `PRIVATE_VAPID_KEY` in `.env` file
+4. Install dependencies.
+
+   ```bash
+   npm install
+   ```
+
+5. Run server.
+
+   ```bash
+   npm run start
+   ```
+
+</Steps>
+
+## sama-push-queue-board
+
+<LinkCard
+  title="SAMA-Communications/sama-push-queue-board - GitHub"
+  href="https://github.com/SAMA-Communications/sama-push-queue-board"
+/>
+
+<Steps>
+
+1. Clone the repo.
+
+   ```bash
+   git clone git@github.com:SAMA-Communications/sama-push-queue-board.git
+   cd sama-push-queue-board
+   ```
+
+2. Create env file from the template.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Install dependencies.
+
+   ```bash
+   npm install
+   ```
+
+4. Run server.
+
+   ```bash
+   npm run start
+   ```
+
+5. Access http://localhost:3000/ui
+
+6. Done.
+
+</Steps>
+
+## Useful Link
+
+<LinkCard
+  title="SAMA: chat server tech stack"
+  target="_blank"
+  href="https://medium.com/sama-communications/sama-chat-server-tech-stack-2ebfba71367b"
+  description="In the world of real-time communication, chat servers play a vital role in connecting people across various platforms. To build a robust and scalable chat server, selecting the right technology stack is crucial."
+/>

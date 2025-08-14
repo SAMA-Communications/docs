@@ -1,0 +1,114 @@
+---
+title: User Search
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "User" },
+    { text: "Search" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="user_search" size="large" />
+
+The `user_search` request returns users matched with the specified parameters.
+
+## Request Parameters
+
+| Name            | Type            | Description                         |
+| --------------- | --------------- | ----------------------------------- |
+| `keyword`       | `string`        | Key phrase for search               |
+| `limit`         | `number`        | Maximum number of objects           |
+| `updated_at.gt` | `timestamp`     | Time reference point                |
+| `ignore_ids`    | `array[string]` | Array of users that will be ignored |
+
+## Response Fields
+
+| Name    | Type            | Description           |
+| ------- | --------------- | --------------------- |
+| `users` | `array[object]` | Array of user objects |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_search": {
+      "keyword": "sam",
+      "limit": 100,
+      "updated_at": {
+        "gt": timestamp_in_ms,
+      },
+      "ignore_ids": [ "63077ad836b78c3d82af0866", "63077ad836b78c3d82af0868" ]
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "users": [...]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Users"
+  href="https://medium.com/sama-communications/sama-chat-server-api-users-edf65ea6a341"
+  description="All messengers and services that use instant messaging require minimal user identification in the system. We have developed a universal API..."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

@@ -1,0 +1,119 @@
+---
+title: Edit User
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "API" }, { text: "User" }, { text: "Edit" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="user_edit" size="large" />
+
+The `user_edit` request can modify certain fields of the user object.
+
+## Request Parameters
+
+| Name                           | Type     | Description          |
+| ------------------------------ | -------- | -------------------- |
+| `current_password`             | `string` | Current user pasword |
+| `new_password`                 | `string` | New user password    |
+| `first_name`                   | `string` | First name           |
+| `last_name`                    | `string` | Last name            |
+| `email`                        | `string` | Email address        |
+| `phone`                        | `string` | Phone number         |
+| `avatar_object.file_blur_hash` | `string` | Blur hash for avatar |
+| `avatar_object.file_name`      | `string` | Avatar image name    |
+| `avatar_object.file_id`        | `string` | Avatar file id       |
+
+## Response Fields
+
+| Name   | Type     | Description               |
+| ------ | -------- | ------------------------- |
+| `user` | `object` | Newly updated user object |
+
+## Example
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "request": {
+    "user_edit": {
+      "current_password": "OldPasswrod123",
+      "new_password": "NewPassword321",
+      "email": "emai@example.com",
+      "phone": "7812356713"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "user": {
+      "id": "63480e68f4794709f802a2fa",
+      "login": "User123",
+      "phone": "7812356713",
+      "email": "emai@example.com",
+      "created_at": "2025-08-13T05:51:44.733Z",
+      "updated_at": "2025-08-13T05:51:44.733Z"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Users"
+  href="https://medium.com/sama-communications/sama-chat-server-api-users-edf65ea6a341"
+  description="All messengers and services that use instant messaging require minimal user identification in the system. We have developed a universal API..."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

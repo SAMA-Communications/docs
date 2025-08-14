@@ -1,0 +1,97 @@
+---
+title: List Message Reactions
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Message" },
+    { text: "Update Reaction" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="message_reactions_list" size="large" />
+
+The `message_reactions_list` request, which allows to get the IDs of users who reacted to a message.
+
+## Request Parameters
+
+| Name  | Type     | Description               |
+| ----- | -------- | ------------------------- |
+| `mid` | `string` | Identifier of the message |
+
+## Response Fields
+
+| Name      | Type            | Description                                    |
+| --------- | --------------- | ---------------------------------------------- |
+| `[emoji]` | `array[string]` | User IDs that reacted with the specified emoji |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "message_reactions_list": {
+      "mid": "63077ad836b78c3d82af0812"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "reactions": {
+      "👍": ["63480e68f4794709f802a2fc", "63480e68f4794709f802a2fb"],
+      "😂": ["63480e68f4794709f802a2fb"]
+    }
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

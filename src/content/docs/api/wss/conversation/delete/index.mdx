@@ -1,0 +1,129 @@
+---
+title: Delete Conversation
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Convarsation" },
+    { text: "Delete" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="conversation_delete" size="large" />
+
+The `conversation_delete` request willl delete Convarsation by specified ID.
+
+## Request Parameters
+
+| Name | Type     | Description                  |
+| ---- | -------- | ---------------------------- |
+| `id` | `string` | Conversation ID for deletion |
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "id": "RequestId",
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "conversation_delete": {
+      "id": "63077ad836b78c3d82af0812"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+When a user leaves the group chat, the next message will also be sent to all users who are online and saved in the `Messages` collection:
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "_id": "6666c4bb2429c50ad0eb0ff6",
+  "cid": "665ee4ab01f6a3b5ec90a2f4",
+  "body": "lane1991 has left the group",
+  "t": 1718011067,
+  "from": "65fcb3f67dbaace5021595b9",
+  "x": {
+    "type": "left_participants",
+    "user": {
+      "native_id": "646e2092d80fe5c4e688dfa0",
+      "_id": "646e2092d80fe5c4e688dfa0",
+      "login": "lane1991",
+      "recent_activity": 1717670392,
+      "created_at": "2024-03-21T22:25:58.169Z",
+      "updated_at": "2024-03-21T22:25:58.169Z"
+    }
+  },
+  "created_at": "2023-05-24T14:34:58.066Z"
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Conversations"
+  href="https://medium.com/sama-communications/sama-chat-server-api-conversations-1ae505b07d17"
+  description="When we developed our API, we followed three rules: fast, confidential, and scalable. Each of these rules has a powerful force when we choose which messenger you will use. "
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

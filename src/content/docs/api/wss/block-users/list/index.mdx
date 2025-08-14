@@ -1,0 +1,91 @@
+---
+title: List Blocked Users
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Block Users" },
+    { text: "List" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="list_blocked_users" size="large" />
+
+The `list_blocked_users` request will return a list of blocked users for the current session user.
+
+## Request Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    | -    | -           |
+
+## Response Fields
+
+| Name    | Type      | Description              |
+| ------- | --------- | ------------------------ |
+| `users` | `boolean` | List of blocked user IDs |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+    ```json
+    {
+      "request": {
+        "list_blocked_users": {},
+        "id": "RequestId"
+      }
+    }
+    ```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+    ```json
+    {
+      "response": {
+        "id": "RequestId",
+        "users": ["63077ad836b78c3d82af0812", "63077ad836b78c3d82af0813"]
+      }
+    }
+    ```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

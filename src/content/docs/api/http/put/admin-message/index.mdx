@@ -1,0 +1,101 @@
+---
+title: Update Admin Message
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "PUT" },
+    { text: "/admin/message" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="PUT" variant="caution" size="large" />
+> <Badge text="/admin/message" size="large" />
+
+Updates the body of a previously sent message. Only the sender can edit the message. All online participants of the conversation will receive the updated message in real-time.
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "organizationId": "680a2fae96cc69d78861f101",
+  "senderId": "63480e68f4794709f802a2fa",
+  "messageEdit": {
+    "id": "63077ad836b78c3d82af0812",
+    "body": "updated message body"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Request Parameters
+
+| Field              | Type     | Description                                                    |
+| ------------------ | -------- | -------------------------------------------------------------- |
+| `organizationId`   | `string` | OrganizationId performing request                              |
+| `senderId`         | `string` | User ID of the sender (must match the original message sender) |
+| `messageEdit.id`   | `string` | Message ID to be edited                                        |
+| `messageEdit.body` | `string` | New content for the message body                               |
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "success": true
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

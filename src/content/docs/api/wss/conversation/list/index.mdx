@@ -1,0 +1,129 @@
+---
+title: List Conversations
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Convarsation" },
+    { text: "List" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="conversation_list" size="large" />
+
+The `conversation_list` request returns a list of conversation objects.
+
+## Request Parameters
+
+| Name            | Type        | Description           |
+| --------------- | ----------- | --------------------- |
+| `limit`         | `number`    | Max number of objects |
+| `updated_at.gt` | `timestamp` | Time reference point  |
+
+## Response Fields
+
+| Name            | Type            | Description                   |
+| --------------- | --------------- | ----------------------------- |
+| `conversations` | `array[object]` | Array of Conversation objects |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "conversation_list": {
+      "limit": 67,
+      "updated_at": {
+        "gt": timestamp_in_ms
+      }
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "conversations": [
+      {
+        "_id": "507f1f77bcf86cd799439011",
+        "name": "General",
+        "type": "g",
+        "description": "General discuss chat",
+        "owner_id": "507f191e810c19729de860ea",
+        "opponent_id": "507f191e810c19729de880ee",
+        "last_message": {
+          "_id" :"507f191e810c19729de860ea",
+          "body": "Any news on the recent decision?",
+          "from": "507f191e810c19729de880ee",
+          "t": 15673838833
+        },
+        "unread_messages_count": 2,
+        "created_at": "2025-08-13T05:51:44.733Z",
+        "updated_at": "2025-08-13T05:51:44.733Z"
+      }
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Conversations"
+  href="https://medium.com/sama-communications/sama-chat-server-api-conversations-1ae505b07d17"
+  description="When we developed our API, we followed three rules: fast, confidential, and scalable. Each of these rules has a powerful force when we choose which messenger you will use. "
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

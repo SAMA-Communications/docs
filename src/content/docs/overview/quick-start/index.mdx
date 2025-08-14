@@ -1,0 +1,83 @@
+---
+title: Getting Started
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Overview" }, , { text: "Getting Started" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps, LinkCard, Card, CardGrid } from "@astrojs/starlight/components";
+
+## Steps
+
+<Steps>
+
+1. **Run SAMA server**:
+
+   <LinkCard
+     title="SAMA server - GitHub"
+     target="_blank"
+     href="https://github.com/SAMA-Communications/sama-server?tab=readme-ov-file#development"
+   />
+
+2. **Run SAMA web client**:
+
+   <LinkCard
+     title="SAMA WEB client - GitHub"
+     target="_blank"
+     href="https://github.com/SAMA-Communications/sama-client?tab=readme-ov-file#development"
+   />
+
+   OR
+
+   <CardGrid>
+     <Card title="SAMA cloud" icon="cloud-download">
+       access public cloud https://app.samacloud.io
+     </Card>
+   </CardGrid>
+
+3. **Run SAMA mobile client**:
+
+   <LinkCard
+     title="SAMA Flutter - GitHub"
+     target="_blank"
+     href="https://github.com/SAMA-Communications/sama-client-flutter?tab=readme-ov-file#development"
+   />
+
+</Steps>
+
+<br />
+
+## See Also
+
+<CardGrid>
+  <LinkCard
+    title="Deployment - Server"
+    href="deployment/server"
+    description="Run your own server."
+  />
+  <LinkCard
+    title="Deployment - Client SDK"
+    href="deployment/client-sdk"
+    description="Use our client SDK to interact with the SAMA server."
+  />
+</CardGrid>
+<LinkCard
+  title="SAMA server - Deployment"
+  target="_blank"
+  href="https://github.com/SAMA-Communications/sama-server?tab=readme-ov-file#deployment"
+  description="Deploying the SAMA application can be done easily with Docker, whether you want a complete setup with all dependencies..."
+/>

@@ -1,0 +1,225 @@
+---
+title: Login User
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "API" }, { text: "User" }, { text: "Login" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Steps } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+<Aside type="caution" title="WARNING">
+  > <Badge text="wss" variant="tip" size="small" />
+  > <Badge text="user_login" size="small" />
+  >Request is deprecated. 
+  
+_Therefore, we recommend using the new http route `/login` for user authorization. !_
+
+</Aside>
+
+## Description
+
+> <Badge text="POST" variant="caution" size="large" />
+> <Badge text="/login" size="large" />
+
+The request will allow the user to log into the system and share their device ID to receive all other requests from other users or events.
+
+## Request Parametrs
+
+Possible authorization request options:
+
+<Tabs>
+  <TabItem label="Request (deafult)">
+```json
+{
+  "organization_id": "680a2fae96cc69d78861f101",
+  "login": "login_u1",
+  "password": "u1_password",
+  "device_id": "device_u1"
+}
+```
+  </TabItem>  <TabItem label="Request (via access_token)">
+```json
+{
+  "device_id": "device_u1"
+}
+```
+  </TabItem>
+</Tabs>
+
+<Aside>
+ `access_token` must be put in the request header.
+
+```json
+{ "Authorization": `Bearer ${accessToken}` }
+```
+
+</Aside>
+
+## Response Fields
+
+All variations of the query will have the same response:
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "user": {
+      "_id": "63480e68f4794709f802a2fa",
+      "login" :"login_u1",
+      "created_at": "2022-10-13T13:11:04.447Z",
+      "updated_at": "2022-10-13T13:11:04.447Z"
+    },
+  "access_token": "...",
+  "expired_at": timestamp_in_ms
+}
+```
+  </TabItem>
+</Tabs>
+
+- `expired_at` - the time when the `access_token` will expire
+
+<Aside>
+  If the authorization was performed using `login & password` or
+  `refresh_token`, a new `refresh_token` will be **embedded in the response
+  cookie**.
+</Aside>
+
+## Final Step
+
+After receiving the `access_token`, the client must send a request to connect the socket to the server and link it to the current `access_token`:
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "connect": {
+      "token": "access_token",
+      "device_id": "device_u1"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{ "response": { "id": "RequestId", "success": true } }
+```
+  </TabItem>  
+</Tabs>
+
+## Old Websocket Requests <Badge text="Deprecated" variant="danger" size="large" />
+
+### Examples
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_login": {
+      "organization_id": "680a2fae96cc69d78861f101",
+      "login": "user_1",
+      "password": "user_paswword_1",
+      "device_id": "xxx-yyy-zzz"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "user": {
+      "_id": "63480e68f4794709f802a2fa",
+      "created_at": "2022-10-13T13:11:04.447Z",
+      "updated_at": "2022-10-13T13:11:04.447Z",
+      "login" :"user_1"
+    },
+    "token": "..."
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+Later, the subsequent logins can be done via `token`:
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_login": {
+      "token": "..."
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{ "response": { "id": "RequestId", "user": { ... }, "token": "..." } }
+```
+
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA Progressive AUTH flow"
+  href="https://medium.com/sama-communications/sama-progressive-auth-flow-b814206f6117"
+  description="During the last month 📆, we have been implementing and testing a new authorization flow for our API."
+/>
+<LinkCard
+  title="Progressive AUTH flow in Web apps"
+  href="https://medium.com/sama-communications/progressive-auth-flow-in-web-apps-495fb40c56dd"
+  description="In today’s digital landscape, balancing robust security with an effortless user experience is more crucial than ever. Enter Progressive AUTH — a dynamic approach to authentication that..."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

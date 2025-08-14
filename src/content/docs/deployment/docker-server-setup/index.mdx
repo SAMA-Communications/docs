@@ -1,0 +1,178 @@
+---
+title: Docker Server Setup
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "Overview" },
+    { text: "Docker Server Setup" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps, Aside, LinkCard } from "@astrojs/starlight/components";
+import { Tabs, TabItem, CardGrid } from "@astrojs/starlight/components";
+
+## Local Development
+
+<Steps>
+
+1.  Make sure you have latest `Node 18` installed.
+2.  Copy `.env.example` to `.env`.
+3.  run dependant services (MongoDB, Minio, Redis) via
+
+    ```bash
+    docker-compose -f docker-compose.yml -f docker-compose.development.yml up
+    ```
+
+4.  ```bash
+    npm install
+    ```
+
+5.  ```bash
+    npm run migrate-mongo-up
+    ```
+
+6.  ```bash
+    npm run start
+    ```
+
+    <Aside type="tip">
+      In a case of running under Windows - see
+      https://github.com/SAMA-Communications/sama-server/issues/128
+    </Aside>
+
+7.  Now the server will be listening for incoming connections at `ws://localhost:9001`
+
+</Steps>
+
+## Compete Deployment
+
+Deploying the SAMA application can be done easily with Docker, whether you want a complete setup with all dependencies or a local environment with the main applications. Below are the steps to follow:
+
+### Docker one-command deployment
+
+This approach builds and runs the entire SAMA application, including all dependencies, in a single command. It is ideal for setting up the full environment quickly.
+
+To deploy using this method, run:
+
+```bash
+docker-compose -f docker-compose-full.yml up --build
+```
+
+### Docker local deployment
+
+To run the dependency services along with the main `SAMA` applications (`sama-client`, `sama-server`, and `sama-push-daemon`), use:
+
+```bash
+docker-compose up --build
+```
+
+<Aside type="caution" title="Warning">
+  If you are using MacOS or Windows, and want run `SAMA` apps, add these two
+  variables before the launch command:
+</Aside>
+
+<Tabs>
+  <TabItem label="Windows">
+```bash
+$env:MINIO*ENDPOINT = (Get-NetIPAddress | Where-Object { $*.AddressFamily -eq 'IPv4' -and $\_.IPAddress -match '^192\.168\.|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\.' } | Select-Object -ExpandProperty IPAddress)[1]; $env:MINIO_PORT = 9010;
+```
+  </TabItem>
+  <TabItem label="MacOS">
+```bash
+MINIO_ENDPOINT=$(ipconfig getifaddr en0) MINIO_PORT=9010
+```
+  </TabItem>  
+</Tabs>
+
+<Aside>
+  If you are encountering issues with attachments in the web client, it suggests
+  that an error occurred in the first variable. To resolve this, you can simply
+  update the code segment with the private IP address of your machine.
+</Aside>
+
+## Avaible Links
+
+Now you can access apps at the following addresses:
+
+<CardGrid>
+  <LinkCard
+    targe="_blank"
+    title="Server-API"
+    href="http://localhost:9000"
+    description="http://localhost:9000"
+  />
+  <LinkCard
+    targe="_blank"
+    title="Web-Client"
+    href="http://localhost:10000"
+    description="http://localhost:10000"
+  />
+  <LinkCard
+    targe="_blank"
+    title="Minio-API"
+    href="http://localhost:9010"
+    description="http://localhost:9010"
+  />
+  <LinkCard
+    targe="_blank"
+    title="Minio-Client"
+    href="http://localhost:9011"
+    description="http://localhost:9011"
+  />
+  <LinkCard
+    targe="_blank"
+    title="Push-dashboard"
+    href="http://localhost:3001/ui"
+    description="http://localhost:3001/ui"
+  />
+  <LinkCard
+    targe="_blank"
+    title="Server-dashboard"
+    href="http://localhost:9002"
+    description="http://localhost:9002"
+  />
+  <LinkCard
+    targe="_blank"
+    title="Redis-commander"
+    href="http://localhost:8081"
+    description="http://localhost:8081"
+  />
+</CardGrid>
+
+## Docker e2e tests & migrations
+
+Run migrations:
+
+```bash
+docker-compose exec sama-server sh -c "MONGODB_URL=mongodb://172.25.0.4/samatests npm run migrate-mongo-up"
+```
+
+Run e2e tests:
+
+```bash
+docker-compose exec sama-server sh -c "MONGODB_URL=mongodb://172.25.0.4/samatests npm run test"
+```
+
+## Useful Link
+
+<LinkCard
+  title="SAMA: chat server tech stack"
+  target="_blank"
+  href="https://medium.com/sama-communications/sama-chat-server-tech-stack-2ebfba71367b"
+  description="In the world of real-time communication, chat servers play a vital role in connecting people across various platforms. To build a robust and scalable chat server, selecting the right technology stack is crucial."
+/>

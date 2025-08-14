@@ -1,0 +1,134 @@
+---
+title: Send System Message
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Message" },
+    { text: "System Message" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="system_message" size="large" />
+
+Provides the ability to send system messages to users or conversations.
+
+## Request Parameters
+
+| Name   | Type            | Description                                   |
+| ------ | --------------- | --------------------------------------------- |
+| `id`   | `string`        | Identifier of the message                     |
+| `uids` | `array[string]` | IDs of users to whom messages were sent       |
+| `cid`  | `string`        | Conversation ID in which the message was sent |
+| `x`    | `object`        | Optional extra parameters for the message     |
+
+<Aside type="caution" title="Important">
+  Required: either `uids` or `cid`
+</Aside>
+
+## Examples
+
+<Tabs>
+  <TabItem label="Request (uids)">
+```json
+{
+  "system_message": {
+    "id": "5а34p21m0xj23",
+    "uids": ["63480e68f4794709f802a2fc", "63480e68f4794709f802a2fb"],
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    }
+  }
+}
+```
+  </TabItem>  
+  <TabItem label="Request (cid)">
+```json
+{
+  "system_message": {
+    "id": "5а34p21m0xj24",
+    "cid": "63077ad836b78c3d82af0812",
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+All conversation's participants or all recipients from `uids` who is online will receive the following message in real-time:
+
+<Tabs>
+  <TabItem label="Event (uids)">
+```json
+{
+  "system_message": {
+    "_id": "5а34p21m0xj23",
+    "t": 15673838833,
+    "from": "634ec51c0b65918393dca5bf",
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    }
+  }
+}
+```
+  </TabItem>  
+  <TabItem label="Event (cid)">
+```json
+{
+  "system_message": {
+    "_id": "5а34p21m0xj24",
+    "t": 15673838833,
+    "cid": "63077ad836b78c3d82af0812",
+    "from": "634ec51c0b65918393dca5bf",
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    },
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

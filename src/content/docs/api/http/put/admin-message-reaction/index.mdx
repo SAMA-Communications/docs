@@ -1,0 +1,123 @@
+---
+title: Update Admin Message Reaction
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "PUT" },
+    { text: "/admin/message/reaction" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, Aside } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="PUT" variant="caution" size="large" />
+> <Badge text="/admin/message/reaction" size="large" />
+
+Updates the reactions of a message. Can add/remove reactions. All online participants of the conversation will receive the update reaction message in real-time.
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "senderId": "63480e68f4794709f802a2fa",
+  "messageReaction": {
+    "mid": "63077ad836b78c3d82af0812",
+    "add": "🤐",
+    "remove": "👍"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+## Request Parameters
+
+| Field                    | Type     | Description                             |
+| ------------------------ | -------- | --------------------------------------- |
+| `senderId`               | `string` | User ID of the user who update reaction |
+| `messageReaction.mid`    | `string` | Message ID to update reaction           |
+| `messageReaction.add`    | `string` | Reaction to add                         |
+| `messageReaction.remove` | `string` | Reaction to remove                      |
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Real-time Message
+
+<Aside type="tip" title="Additional information">
+  Broadcasted to Other Online Participants
+</Aside>
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "message_reactions_update": {
+    "mid": "63077ad836b78c3d82af0812",
+    "cid": "63077ad836b78c3d82af0815",
+    "from": "63480e68f4794709f802a2fa",
+    "add": "🤐",
+    "remove": "👍"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

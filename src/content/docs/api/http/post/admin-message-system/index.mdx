@@ -1,0 +1,135 @@
+---
+title: Send Admin System Message
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "POST" },
+    { text: "/admin/message/system" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, Aside } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="POST" variant="caution" size="large" />
+> <Badge text="/admin/message/system" size="large" />
+
+Sends a **system message** to a specific list of user IDs. These are typically non-conversational messages (e.g., notifications, status updates). Only the specified online recipients will receive the message in real-time. For now, the admin/message/system message can only be caught in the console.
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "organizationId": "680a2fae96cc69d78861f101",
+  "senderId": "63480e68f4794709f802a2fa",
+  "messageSystem": {
+    "id": "5а34p21m0xj23",
+    "uids": ["63480e68f4794709f802a2fc", "63480e68f4794709f802a2fb"],
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Request Parameters
+
+| Field                | Type            | Description                                                         |
+| -------------------- | --------------- | ------------------------------------------------------------------- |
+| `organizationId`     | `string`        | OrganizationId performing request                                   |
+| `senderId`           | `string`        | User ID of the sender                                               |
+| `messageSystem.id`   | `string`        | Unique message ID received from the server                          |
+| `messageSystem.uids` | `array[string]` | List of recipient user IDs (only online users will receive it)      |
+| `messageSystem.x`    | `object`        | Custom metadata parameters (optional), e.g. `{ "event_type": "X" }` |
+
+---
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "ack": {
+    "mid": "5а34p21m0xj23",
+    "t": 15673838833
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Real-time Message
+
+<Aside type="tip" title="Additional information">
+  Sent to Online Recipients
+</Aside>
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "system_message": {
+    "_id": "5а34p21m0xj23",
+    "t": 15673838833,
+    "from": "634ec51c0b65918393dca5bf",
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

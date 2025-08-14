@@ -1,0 +1,124 @@
+---
+title: Mark Admin Messages as Read
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "PUT" },
+    { text: "/admin/message" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, Aside } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="PUT" variant="caution" size="large" />
+> <Badge text="/admin/message/read" size="large" />
+
+Marks one or more messages as **read** in a specific conversation. All users
+whose messages were marked as read will receive a real-time update.
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "organizationId": "680a2fae96cc69d78861f101",
+  "senderId": "63480e68f4794709f802a2fa",
+  "messageRead": {
+    "cid": "63077ad836b78c3d82af0815",
+    "ids": ["63480e68f4794709f802a2fa", "63077ad836b78c3d82af0866"]
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+## Request Parameters
+
+| Field             | Type            | Description                                       |
+| ----------------- | --------------- | ------------------------------------------------- |
+| `organizationId`  | `string`        | OrganizationId performing request                 |
+| `senderId`        | `string`        | User ID marking the messages as read              |
+| `messageRead.cid` | `string`        | Conversation ID                                   |
+| `messageRead.ids` | `array[string]` | List of Message IDs that are being marked as read |
+
+---
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Real-time Message
+
+<Aside type="tip" title="Additional information">
+  Sent to Original Senders
+</Aside>
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "message_read": {
+    "cid": "63077ad836b78c3d82af0815",
+    "ids": ["63480e68f4794709f802a2fa", "63077ad836b78c3d82af0866"],
+    "from": "634ec51c0b65918393dca5bf"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

@@ -1,0 +1,124 @@
+---
+title: Create File Upload URL
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "FILES" },
+    { text: "Create Upload URL" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { LinkCard, Badge, Aside } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="create_files" size="large" />
+
+The `create_files` request will store the files in the system and return the `upload_url` and `_id` keys.
+
+## Request Parameters
+
+> Array of files:
+
+| Name           | Type     | Description       |
+| -------------- | -------- | ----------------- |
+| `name`         | `string` | File name         |
+| `size`         | `number` | File size         |
+| `content_type` | `string` | File content type |
+
+## Response Fields
+
+| Name    | Type            | Description        |
+| ------- | --------------- | ------------------ |
+| `files` | `array[object]` | Saved file objects |
+
+> The `_id` field as the file identifier in the system and `upload_url` for uploading the file to the system on the client.
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "create_files": [
+      { "name": "File_1.png", "size": 240, "content_type": "image/png" },
+      { "name": "File_2.jpeg", "size": 760, "content_type": "image/jpeg" }
+    ],
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "files": [
+      {
+        "_id": "63077ad836b78c3d82af0812",
+        "name": "File_1.png",
+        "size": 240,
+        "content_type": "image/png",
+        "upload_url": "https://...."
+      },
+      {
+        "_id": "63077ad836b78c3d82af0813",
+        "name": "File_2.jpeg",
+        "size": 760,
+        "content_type": "image/jpeg",
+        "upload_url": "https://...."
+      }
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

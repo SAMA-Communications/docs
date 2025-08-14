@@ -1,0 +1,131 @@
+---
+title: Batch Add Contacts
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Address Book" },
+    { text: "Batch Add" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="contacts" size="large" />
+
+All the same as in `contact_add` but focused on sending several contacts at once.
+
+<LinkCard title="Address Book / Add" href="/api/wss/address-book/add/" />
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "contacts": [
+      {
+        "first_name": "Name",
+        "last_name": "Surname",
+        "company": "UserCompany",
+        "email": [ { "type": "work", "value": "..." } ],
+        "phone": [ { "type": "home", "value": "..." } ]
+      },
+      {
+        "first_name": "Name2",
+        "last_name": "Surname2",
+        "company": "UserCompany2",
+        "email": [ { "type": "work", "value": "..." } ],
+        "phone": [ { "type": "home", "value": "..." } ]
+      },
+      ...
+    ]
+    "id": "RequestId"
+   }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "contacts": [
+      {
+        "_id": "63480e68f4794709f802a2fa",
+        "first_name": "Name",
+        "last_name": "Surname",
+        "company": "UserCompany",
+        "email": [{ "type": "home", "value": "..." }],
+        "phone": [
+          { "type": "home", "value": "...", "matched_user_id": "UID7" }
+        ],
+        "updated_at": "2025-08-13T05:51:44.733Z",
+        "created_at": "2025-08-13T05:51:44.733Z"
+      },
+      {
+        "_id": "63480e68f4794709f802a2fy",
+        "first_name": "Name2",
+        "last_name": "Surname2",
+        "company": "UserCompany2",
+        "email": [{ "type": "home", "value": "..." }],
+        "phone": [
+          { "type": "home", "value": "...", "matched_user_id": "UID6" }
+        ],
+        "updated_at": "2025-08-13T05:51:44.733Z",
+        "created_at": "2025-08-13T05:51:44.733Z"
+      }
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Address book"
+  href="https://medium.com/sama-communications/sama-chat-server-api-address-book-f297ce25faa1"
+  description="Each of us has at least once faced a situation where we wanted to write to an friend from our contact list, but couldn’t find them on the platform. That is why..."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

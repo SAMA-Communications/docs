@@ -1,0 +1,89 @@
+---
+title: Unblock User
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Block Users" },
+    { text: "Unblock" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="unblock_user" size="large" />
+
+The `unblock_user` request will unblock the sending of packets to users who have identifiers from the sent array.
+
+## Request Parameters
+
+| Name  | Type            | Description |
+| ----- | --------------- | ----------- |
+| `ids` | `array[string]` | User IDs    |
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "success": true
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+    ```json
+    {
+      "request": {
+        "unblock_user": {
+          "ids": ["63077ad836b78c3d82af0812"]
+        },
+        "id": "RequestId"
+      }
+    }
+    ```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

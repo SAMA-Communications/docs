@@ -1,0 +1,98 @@
+---
+title: Delete User
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "User" },
+    { text: "Delete" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="user_delete" size="large" />
+
+The `user_delete` request deletes the current user.
+
+## Request Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| -    | -    | -           |
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "id": "RequestId",
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_delete": {},
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Users"
+  href="https://medium.com/sama-communications/sama-chat-server-api-users-edf65ea6a341"
+  description="All messengers and services that use instant messaging require minimal user identification in the system. We have developed a universal API..."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

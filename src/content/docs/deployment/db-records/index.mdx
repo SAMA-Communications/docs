@@ -1,0 +1,329 @@
+---
+title: DataBase Records
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Features" }, { text: "DataBase Records" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { LinkCard, Aside } from "@astrojs/starlight/components";
+
+<Aside type="tip">
+  This section contains example JSON objects stored in each database collection.
+  These examples help you quickly understand the general record structure and
+  the main data types.
+</Aside>
+
+For a more precise description and field constraints, see the [schema documentation](link 1).
+
+<LinkCard
+  title="SAMA server: APIs/JSON/validations"
+  href="https://github.com/SAMA-Communications/sama-server/tree/main/APIs/JSON/validations"
+/>
+
+A complete list of all existing record fields can be found in the [detailed model
+description](link 2).
+
+<LinkCard
+  title="AMA server: APP/models"
+  href="https://github.com/SAMA-Communications/sama-server/tree/main/app/models"
+/>
+
+## Data Models
+
+### Users
+
+```json
+{
+  "_id": "68270a15d6a78a5b3a04e041",
+  "organization_id": "68275e45d713217b53da5e35",
+
+  "password_salt": "2RqzmzxRRRQYNcDNk7e7",
+  "encrypted_password": "9383d7cb30fbb43fd0...8a06d171b61a",
+
+  "recent_activity": 1750335284,
+
+  "login": "UserTest",
+  "first_name": "FirstName",
+  "last_name": "LastName",
+  "email": "email@example.com",
+  "phone": "5623956521",
+  "avatar_url": "URL",
+  "avatar_object": {
+    "file_id": "68270a15d6a78a5b3a04e041",
+    "file_name": "FileName.png",
+    "file_blur_hash": "jkGLGHKASJKG#5cJKAS123"
+  },
+
+  "updated_at": "2025-05-16T09:49:09.062Z",
+  "created_at": "2025-05-16T09:49:09.062Z"
+}
+```
+
+### User Tokens
+
+```json
+{
+  "_id": "6891bb81c30d1c4dc02c1391",
+  "organization_id": "68275e45d713217b53da5e35",
+
+  "type": "refresh", // "access"
+  "token": "eyJhbGci...0gm526I_CF-7ra8s2r3KY",
+
+  "user_id": "68270a0ad6a78a5b3a04e03b",
+  "device_id": "4073368485",
+
+  "created_at": "2025-08-05T08:06:25.521Z",
+  "updated_at": "2025-08-05T08:06:25.521Z"
+}
+```
+
+### Push Subscriptions
+
+```json
+{
+  "_id": "683492d953a02106b8212375",
+  "organization_id": "68275e45d713217b53da5e35",
+
+  "platform": "web", // "ios" | "android"
+  "web_endpoint": "https://fcm.googleapis.com/fcm/send/f9Y0o...7xU8h7J9LR58f",
+  "web_key_auth": "uLT+gR7yw...SXMAeL+EQ==",
+  "web_key_p256dh": "BA9kUvwkZEXTlW...iPQREMs6pNMGGxKu1SwRZD0=",
+
+  "user_id": "68270a0ad6a78a5b3a04e03b",
+  "device_udid": "3280748290",
+
+  "created_at": "2025-05-26T16:12:09.317Z",
+  "updated_at": "2025-05-26T16:12:09.317Z"
+}
+```
+
+### Push Events
+
+```json
+{
+  "_id": "68270a3bd6a78a5b3a04e060",
+
+  "user_id": "68270a0ad6a78a5b3a04e03b",
+  "user_ids": ["68270a12d6a78a5b3a04e03f", ""68270a12d6a78a5b3a04ad10"],
+
+  "message": "eyJ0aXRsZSI6Ij...YTM5ZDZhNzhhNWIzYTA0ZTA1OSJ9",
+
+  "created_at": "2025-05-16T09:49:47.620Z",
+  "updated_at": "2025-05-16T09:49:47.620Z"
+}
+```
+
+### Organizations
+
+```json
+{
+  "_id": "6827091e2d046404b8ff24ae",
+
+  "name": "0.6868153972973596-0.4440897071494816",
+
+  "created_at": "2025-05-16T09:45:02.995Z",
+  "updated_at": "2025-05-16T09:45:02.995Z"
+}
+```
+
+### Operations Log
+
+```json
+{
+  "_id": "6891bf16c30d1c4dc02c13b2",
+
+  "user_id": "68270a12d6a78a5b3a04e03f",
+
+  "packet": "{\"message\":{\"_id\":\"6891bf16c30d1c4dc02c13b1\",\"cid\":\"682e47fe4acffe3be7fc73f2\",\"c_type\":\"g\",\"from\":\"68270a0ad6a78a5b3a04e03b\",\"t\":1754382103,\"body\":\"Test\",\"x\":{},\"created_at\":\"2025-08-05T08:21:42.244Z\"}}",
+
+  "created_at": "2025-08-05T08:21:42.253Z",
+  "updated_at": "2025-08-05T08:21:42.253Z"
+}
+```
+
+### Messages
+
+```json
+{
+  "_id": {
+    "$oid": "68270adbd6a78a5b3a04e095"
+  },
+  "organization_id": "68275e45d713217b53da5e35",
+  "cid": "68270ad7d6a78a5b3a04e08e",
+
+  "body": "User3 has left the group",
+  "attachments": [
+    {
+      "file_id": "bb314386aaabb793d17941b2",
+      "file_name": "screenshot 2025-02-23 212243.png",
+      "file_blur_hash": "U58XLS~q0000?b-;NG9F00D%~q_3W=IURP?b",
+      "file_content_type": "image/png",
+      "file_width": 1145,
+      "file_height": 586
+    }
+  ],
+  "x": {
+    "type": "left_participants",
+    "user": {
+        ...
+    }
+  },
+
+  "forwarded_message_id": "68270a0ad6a78a5b3a04e56d", //replied_message_id
+
+  "deleted_for": [],
+  "from": "68270a0ad6a78a5b3a04e03b",
+  "t": 1747389148,
+
+  "created_at": "2025-05-16T09:52:27.380Z",
+  "updated_at": "2025-05-16T09:52:27.380Z"
+}
+```
+
+#### Message Attachments
+
+```json
+{
+  "file_id": "a69644ec8fcbc9ed66b8986b",
+  "file_name": "screenshot 2025-02-19 220336.png",
+  "file_blur_hash": "U98XOY%K~pRhM_?uIn%L-:W8t3MwX8ozRjoz",
+  "file_content_type": "image/png",
+  "file_size": 5235,
+  "file_width": 636,
+  "file_height": 182
+}
+```
+
+### Message Statuses
+
+```json
+{
+  "_id": "68275eca3c2ad05c5a824107",
+
+  "mid": "68275e4f61b4fd9edded259e",
+  "status": "read",
+
+  "cid": "6827574df47d0bb79ef3e62c",
+  "user_id": "68270a0ad6a78a5b3a04e03b",
+
+  "created_at": "2025-05-22T07:48:16.284Z",
+  "updated_at": "2025-05-22T07:48:16.284Z"
+}
+```
+
+### Message Reactions
+
+TBA
+
+### Files
+
+```json
+{
+  "_id": "682c45a28e02c2b1d51bd8a1",
+  "organization_id": "68275e45d713217b53da5e35",
+
+  "name": "screenshot 2025-05-04 151311.png",
+  "size": 305254,
+  "content_type": "image/png",
+  "object_id": "88f04efaa2a7d26ac010ec63",
+
+  "user_id": "68270a0ad6a78a5b3a04e03b",
+
+  "created_at": "2025-05-20T09:04:34.159Z",
+  "updated_at": "2025-05-20T09:04:34.159Z"
+}
+```
+
+### Conversation Participants
+
+```json
+{
+  "_id": "6827091f2d046404b8ff258e",
+  "organization_id": "68275e45d713217b53da5e35"
+
+  "conversation_id": "6827091f2d046404b8ff258d",
+  "user_id": "6827091f2d046404b8ff258a",
+  "role": "",
+
+  "created_at": "2025-05-16T09:45:03.983Z",
+  "updated_at": "2025-05-16T09:45:03.983Z",
+}
+```
+
+### Conversations
+
+```json
+{
+  "_id": "6827091f2d046404b8ff258d",
+  "organization_id": "68275e45d713217b53da5e35",
+
+      ,
+
+  "name": "Chat",
+  "description": "Description",
+  "type": "g", // "c"
+  "image_object":{
+    "file_id": "68270a15d6a78a5b3a04e041",
+    "file_name": "FileName.png",
+    "file_blur_hash": "jkGLGHKASJKG#5cJKAS123"
+  },
+  "image_url": "url",
+  "owner_id": "6827091f2d046404b8ff258a",
+
+  "subscribers_count": "",
+
+  "created_at": "2025-05-16T09:45:03.983Z",
+  "updated_at": "2025-05-16T09:45:03.983Z"
+}
+```
+
+```json
+{
+  "_id": "6827091f2d046404b8ff258d",
+  "organization_id": "68275e45d713217b53da5e35",
+
+  "type": "u",
+  "owner_id": "68270a0ad6a78a5b3a04e03b",
+  "opponent_id": "68270a12d6a78a5b3a04e03f",
+
+  "created_at": "2025-05-16T09:45:03.983Z",
+  "updated_at": "2025-05-16T09:45:03.983Z"
+}
+```
+
+### Conversation Handler
+
+```json
+{
+  "_id": "68275750f47d0bb79ef3e631",
+  "conversation_id": "6827574df47d0bb79ef3e62c",
+
+  "content": "// vvv Don`t remove or change the line bel...ACCEPT, env.RESOLVE, env.REJECT);",
+  "updated_by": "68270a0ad6a78a5b3a04e03b",
+
+  "created_at": "2025-05-16T15:18:40.190Z",
+  "updated_at": "2025-05-16T15:18:40.190Z"
+}
+```
+
+### Contacts
+
+TBA
+
+### Bocked Users
+
+TBA

@@ -1,0 +1,124 @@
+---
+title: Create Push Subscription
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Push Subscription" },
+    { text: "Create" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="push_subscription_create" size="large" />
+
+The `push_subscription_create` request registers devices for receiving push notifications.
+
+## Request Parameters
+
+| Name             | Type     | Description                          |
+| ---------------- | -------- | ------------------------------------ |
+| `platform`       | `string` | Device platform (`web`, `ios`, etc.) |
+| `web_endpoint`   | `string` | Web Push endpoint URL                |
+| `web_key_auth`   | `string` | Web Push authentication key          |
+| `web_key_p256dh` | `string` | Web Push P256DH public key           |
+| `device_token`   | `string` | Device token                         |
+| `device_udid`    | `string` | Current device id                    |
+
+<Aside title="Info">
+  The [`web_endpoint`, `web_key_auth`, `web_key_p256dh`] and `device_token`
+  fields are interchangeable for different devices.
+</Aside>
+
+## Response Fields
+
+| Name             | Type     | Description                          |
+| ---------------- | -------- | ------------------------------------ |
+| `platform`       | `string` | Device platform (`web`, `ios`, etc.) |
+| `web_endpoint`   | `string` | Web Push endpoint URL                |
+| `web_key_auth`   | `string` | Web Push authentication key          |
+| `web_key_p256dh` | `string` | Web Push P256DH public key           |
+| `device_token`   | `string` | Device token                         |
+| `device_udid`    | `string` | Current device id                    |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "push_subscription_create": {
+      "platform": "web",
+      "web_endpoint": "enpoint",
+      "web_key_auth": "auth",
+      "web_key_p256dh": "p256dh",
+      "device_token": "...",
+      "device_udid": "deviceId"
+    },
+    "id": "RequestId",
+  },
+};
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "subscription": {
+      "_id": "644156fea451b5950d13d0e8",
+      "platform": "web",
+      "web_endpoint": "enpoint",
+      "web_key_auth": "auth",
+      "web_key_p256dh": "p256dh",
+      "device_udid": "deviceId",
+      "user_id": "644156fea451b5950d13d0e5",
+      "created_at": "2025-08-13T05:51:44.733Z",
+      "updated_at": "2025-08-13T05:51:44.733Z"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

@@ -1,0 +1,175 @@
+---
+title: List Messages
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Message" },
+    { text: "List" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="message_list" size="large" />
+
+The `message_list` request returns a list of message objects for the specified query.
+
+## Request Parameters
+
+| Name            | Type            | Description                             |
+| --------------- | --------------- | --------------------------------------- |
+| `cid`           | `string`        | Conversation ID where to search         |
+| `ids`           | `array[string]` | Array of IDs for the necessary messages |
+| `limit`         | `number`        | Max number of returned messages         |
+| `updated_at.gt` | `date`          | Time point of search                    |
+| `updated_at.lt` | `date`          | Time point of search                    |
+
+## Response Fields
+
+| Name       | Type    | Description              |
+| ---------- | ------- | ------------------------ |
+| `messages` | `array` | Array of Message objects |
+
+## Examples
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "message_list": {
+      "cid": "63077ad836b78c3d82af0812",
+      "limit": 27,
+      "updated_at": {
+        "gt": timestamp_in_ms
+      }
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "messages": [
+      {
+        _id: "63760c34c35e750877677925",
+        body: "How is going?",
+        cid: "63563a2ad745dc1c6ad01b5f",
+        from: "63480e68f4794709f802a2fa",
+        status: "sent",
+        attachments: [
+          { file_id: "file_name_1", file_name: "file_1" }
+        ],
+        reactions: {}
+        t: 1668680757,
+        created_at: "2023-05-24T14:34:58.066Z"
+      }
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Aside>It can also be used with the `ids` field:</Aside>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "request": {
+    "message_list": {
+      "cid": "63077ad836b78c3d82af0812",
+      "ids": [ "63760c34c35e750877677925", ... ]
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "messages": [
+      {
+        "_id": "63760c34c35e750877677925",
+        "body": "How is going?",
+        "cid": "63563a2ad745dc1c6ad01b5f",
+        "from": "63480e68f4794709f802a2fa",
+        "status": "sent",
+        "attachments": [
+          { "file_id": "file_name_1", "file_name": "file_1" }
+        ],
+        "reactions": {}
+        "t": 1668680757,
+        "created_at": "2025-08-13T05:51:44.733Z"
+      },
+      ...
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Messages"
+  href="https://medium.com/sama-communications/sama-chat-server-api-messages-dc00e9684dc0"
+  description="Based on ease of use, and with easy-to-understand documentation and articles on how to set up and use our APIs, we want to show that it is REAL to build communication into your application."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

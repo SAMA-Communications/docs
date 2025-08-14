@@ -1,0 +1,148 @@
+---
+title: Send Admin Message
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "POST" },
+    { text: "/admin/message" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, Aside } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="POST" variant="caution" size="large" />
+> <Badge text="/admin/message" size="large" />
+
+Sends a message to a specific conversation. The message can include text, attachments, and optional metadata. All online participants of the conversation will receive the message in real-time.
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "organizationId": "680a2fae96cc69d78861f101",
+  "senderId": "63480e68f4794709f802a2fa",
+  "message": {
+    "id": "5а34p21m0xj23",
+    "body": "hey how is going?",
+    "cid": "63480e68f4794709f802a2fa",
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    },
+    "attachments": [
+      { "name": "file_1", "size": 240, "content_type": "type" },
+      { "name": "file_2", "size": 126, "content_type": "type" }
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Request Parameters
+
+| Field                 | Type                | Description                                                                                                                        |
+| --------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `organizationId`      | `string`            | OrganizationId performing request                                                                                                  |
+| `senderId`            | `string`            | User ID of the sender                                                                                                              |
+| `message.id`          | `string`            | Unique message ID received from the server\*\* (i.e., `server_mid` from a previous response), used for tracking and acknowledgment |
+| `message.body`        | `string`            | The message text                                                                                                                   |
+| `message.cid`         | `string`            | Conversation ID the message belongs to                                                                                             |
+| `message.x`           | `object`            | Custom parameters, e.g. `{ "new_friend_connected": true }`                                                                         |
+| `message.attachments` | `array` of `object` | Array of attachment metadata                                                                                                       |
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "ask": {
+    "mid": "5а34p21m0xj23",
+    "server_mid": "63480e68f4794709f802a2fd",
+    "t": 15673838834
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Real-time Message
+
+<Aside type="tip" title="Additional information">
+  Broadcasted to Online Participants
+</Aside>
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "message": {
+    "_id": "63480e68f4794709f802a2fa",
+    "t": 15673838833,
+    "from": "634ec51c0b65918393dca5bf",
+    "body": "hey how is going?",
+    "cid": "63480e68f4794709f802a2fa",
+    "x": {
+      "param1": "value",
+      "param2": "value"
+    },
+    "attachments": [
+      { "file_id": "123123_file_1", "file_name": "file_1" },
+      { "file_id": "653534_file_2", "file_name": "file_2" }
+    ],
+    "created_at": "2023-07-04T07:23:53.308Z"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

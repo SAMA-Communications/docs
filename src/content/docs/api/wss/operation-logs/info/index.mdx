@@ -1,0 +1,107 @@
+---
+title: Operation Logs Overview
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "API" }, { text: "Operations Log" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="op_log_list" size="large" />
+
+The `op_log_list` request will return packages assigned to the current user for the specified time period.
+
+## Request Parameters
+
+| Name            | Type        | Description          |
+| --------------- | ----------- | -------------------- |
+| `created_at.gt` | `timestamp` | Time reference point |
+| `created_at.lt` | `timestamp` | Time reference point |
+
+<Aside type="caution" title="Required">
+  > `gt` or `lt` param is required.
+</Aside>
+
+## Response Fields
+
+| Name   | Type            | Description       |
+| ------ | --------------- | ----------------- |
+| `logs` | `array[object]` | Array of packages |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "op_log_list": {
+      "created_at": {
+        "gt": "timestamp_in_ms"
+      }
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+ "response": {
+  "logs": [
+    {
+      "_id": "63480e68f4794709f802a2fd",
+      "user_id": "634ec51c0b65918393dca5bf",
+      "packet": { ... }
+    },
+    {
+      "_id": "63480e68f4794709f802a2fa",
+      "user_id": "634ec51c0b65918393dca5bf",
+      "packet": { ... }
+    }
+  ],
+  "id": "RequestId"
+ }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

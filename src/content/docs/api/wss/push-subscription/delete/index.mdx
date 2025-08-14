@@ -1,0 +1,87 @@
+---
+title: Delete Push Subscription
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Push Subscription" },
+    { text: "Delete" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="push_subscription_delete" size="large" />
+
+The `push_subscription_delete` request deletes the active subscription of the device whose ID was passed in the body of the request.
+
+## Request Parameters
+
+| Name                                   | Type     | Description            |
+| -------------------------------------- | -------- | ---------------------- |
+| `push_subscription_delete.device_udid` | `string` | Subscription device id |
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "id": "RequestId",
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "push_subscription_delete": {
+      "device_udid": "deviceId"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

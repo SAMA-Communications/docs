@@ -1,0 +1,88 @@
+---
+title: Unsubscribe from Conversation
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Convarsation" },
+    { text: "Unsubscribe" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="conversation_unsubscribe" size="large" />
+
+The `conversation_unsubscribe` request allowed the user to unsubscribe from the channel (leave).
+
+## Request Parameters
+
+| Name  | Type     | Description                      |
+| ----- | -------- | -------------------------------- |
+| `cid` | `string` | Conversation ID fot subscription |
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "id": "RequestId",
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "conversation_unsubscribe": {
+      "cid": "646e2092d80fe5c4e688dfa0",
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

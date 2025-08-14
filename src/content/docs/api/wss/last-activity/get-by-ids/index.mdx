@@ -1,0 +1,107 @@
+---
+title: Get Last Activity by IDs
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Last Activity" },
+    { text: "Get by IDs" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="user_last_activity" size="large" />
+
+This request will help you obtain information about the `last activity` of other users.
+
+## Request Parameters
+
+| Name  | Type            | Description |
+| ----- | --------------- | ----------- |
+| `ids` | `array[string]` | User IDs    |
+
+## Response Fields
+
+| Name            | Type     | Description               |
+| --------------- | -------- | ------------------------- |
+| `last_activity` | `object` | Newly created user object |
+
+> Returns the UID and related last activity.
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_last_activity": {
+      "ids": ["UID1", "UID2", "UID3"] // max 10 UIDs per request
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "last_activity": {
+      "UID1": 1755065166,
+      "UID2": 0, // "online"
+      "UID3": 1755047354
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Activities"
+  href="https://medium.com/sama-communications/sama-chat-server-api-activities-97b712b88671"
+  description="I think everyone has had a conversation where your opponent didn’t answer for a long time, and you didn’t know whether they were..."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

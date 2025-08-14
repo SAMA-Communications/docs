@@ -1,0 +1,105 @@
+---
+title: Set Admin Online Activityonline
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "POST" },
+    { text: "/admin/activity/online" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="POST" variant="caution" size="large" />
+> <Badge text="/admin/activity/onlinee" size="large" />
+
+Get online users list (ids only of full model) or count online users
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "organizationId": "680a2fae96cc69d78861f101",
+  "userId": "63077ad836b78c3d82af0815",
+  "limit": 10,
+  "offset": 0,
+  "count": false,
+  "idsOnly": true
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Request Parameters
+
+| Field            | Type      | Description                             |
+| ---------------- | --------- | --------------------------------------- |
+| `organizationId` | `string`  | OrganizationId performing request       |
+| `userId`         | `string`  | User ID performing the deletion         |
+| `limit`          | `int`     | limit numbers of users in response      |
+| `offset`         | `int`     | users to skip for pagination            |
+| `count`          | `boolean` | receive only users count in response    |
+| `idsOnly`        | `boolean` | receive only User IDs array in response |
+
+---
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "users": ["67ed122cffed69f6d9c5ffdb", "67ed11d9ffed69f6d9c5ffd5"]
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

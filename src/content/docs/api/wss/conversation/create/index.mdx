@@ -1,0 +1,149 @@
+---
+title: Create Conversation
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Convarsation" },
+    { text: "Create" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="conversation_create" size="large" />
+
+The `conversation_create` request creates a conversation object on the server and notifies all participants about it, if they have been added.
+
+## Request Parameters
+
+| Name                          | Type            | Description                  |
+| ----------------------------- | --------------- | ---------------------------- |
+| `type`                        | `string`        | Conversation type            |
+| `name`                        | `string`        | Conversation name            |
+| `description`                 | `string`        | Description of conversation  |
+| `participants`                | `array[string]` | Array of participant IDs     |
+| `opponent_id`                 | `string`        | Opponent ID for private chat |
+| `image_object.file_blur_hash` | `string`        | Blur hash for chat image     |
+| `image_object.file_name`      | `string`        | Chat image name              |
+| `image_object.file_id`        | `string`        | Chat image file id           |
+
+<Aside type="caution" title="Important">
+A `type` param must have only one of three values:
+
+- `u` - (user) - a private conversations for two people only.
+- `g` - (group) - conversations for a group of users, two or more.
+- `c` - (channel) - public channel conversation with admins and subscribers (admin access 'rw', subscribers access 'r').
+
+</Aside>
+
+## Response Fields
+
+| Name           | Type     | Description                       |
+| -------------- | -------- | --------------------------------- |
+| `conversation` | `object` | Newly created Conversation object |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "conversation_create": {
+      "name": "ChantName",
+      "description": "Description",
+      "type": "g"
+      "participants": [ "63077ad836b78c3d82af0812", "63077ad836b78c3d82af0866" ]
+    },
+    "id": "RequestId"
+   }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{ "response": { "id": "RequestId", "conversation": { ... } } }
+```
+  </TabItem>  
+</Tabs>
+
+After conversation created, all the online participants will receive the following event about newly created conversation:
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "system_message": {
+    "_id": "646e2092d80fe5c4e688dfa0",
+    "t": 15673838833,
+    "cid": "646e2092d80fe5c4e688dfa0",
+    "from": "63077ad836b78c3d82af0812",
+    "x": {
+      "conversation_created": {
+        "_id": "646e2092d80fe5c4e688dfa0",
+        "type": "u",
+        "opponent_id": "646c823bf989c57fe910d289",
+        "participants": ["646c823bf989c57fe910d289"],
+        "owner_id": "646c82947b3aceab988c0073",
+        "created_at": "2023-05-24T14:34:58.066Z",
+        "updated_at": "2023-05-24T14:52:24.953Z"
+      }
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Conversations"
+  href="https://medium.com/sama-communications/sama-chat-server-api-conversations-1ae505b07d17"
+  description="When we developed our API, we followed three rules: fast, confidential, and scalable. Each of these rules has a powerful force when we choose which messenger you will use. "
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

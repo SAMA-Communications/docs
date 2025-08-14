@@ -1,0 +1,51 @@
+---
+title: Contributing
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Overview" }, , { text: "Contributing" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+We welcome contributions from the community!
+
+To contribute, please follow these steps:
+
+<Steps>
+
+1. Fork the repository.
+2. Create a new branch.
+
+   ```bash
+   git checkout -b feature-branch
+   ```
+
+3. Make your changes and commit them.
+
+   ```bash
+   git commit -m 'Add new feature'
+   ```
+
+4. Push to the branch.
+
+   ```bash
+   git push origin feature-branch
+   ```
+
+5. Create a new Pull Request.
+
+</Steps>

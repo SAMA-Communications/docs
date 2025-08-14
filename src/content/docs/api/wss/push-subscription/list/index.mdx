@@ -1,0 +1,124 @@
+---
+title: List Push Subscriptions
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Push Subscription" },
+    { text: "List" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="push_subscription_list" size="large" />
+
+The `push_subscription_list` request returns an array of active device subscriptions for a specific user.
+
+## Request Parameters
+
+| Name      | Type     | Description |
+| --------- | -------- | ----------- |
+| `user_id` | `string` | User ID     |
+
+## Response Fields
+
+| Name            | Type            | Description                             |
+| --------------- | --------------- | --------------------------------------- |
+| `subscriptions` | `array[object]` | Array of devices for push notifications |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "push_subscription_list": {
+      "user_id": "644157e316eec28e3dfb8b31"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "subscriptions": [
+      {
+        "_id": "644157e316eec28e3dfb8b34",
+        "platform": "web",
+        "web_endpoint": "enpoint1",
+        "web_key_auth": "auth1",
+        "web_key_p256dh": "p256dh1",
+        "device_udid": "deviceId1",
+        "user_id": "644157e316eec28e3dfb8b31",
+        "created_at": "2025-08-13T05:51:44.733Z",
+        "updated_at": "2025-08-13T05:51:44.733Z"
+      },
+      {
+        "_id": "644157e316eec28e3dfb8b35",
+        "platform": "ios",
+        "web_endpoint": "enpoint2",
+        "web_key_auth": "auth2",
+        "web_key_p256dh": "p256dh2",
+        "device_udid": "deviceId2",
+        "user_id": "644157e316eec28e3dfb8b31",
+        "created_at": "2025-08-13T05:51:44.733Z",
+        "updated_at": "2025-08-13T05:51:44.733Z"
+      }
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Push Notifications"
+  href="https://medium.com/sama-communications/sama-chat-server-api-push-notifications-7e904eb04a0c"
+  description="Yes, you’ve heard this sound on your phone or other device many times. Nowadays, any application has notifications and..."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

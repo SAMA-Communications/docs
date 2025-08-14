@@ -1,0 +1,124 @@
+---
+title: Logout User
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "User" },
+    { text: "Logout" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Steps } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+<Aside type="caution" title="WARNING">
+  > <Badge text="wss" variant="tip" size="small" />
+  > <Badge text="user_logout" size="small" />
+  >Request is deprecated. 
+  
+_! Therefore, we recommend using the new http route `/logout` to log the user out of the system. !_
+
+</Aside>
+
+## Description
+
+> <Badge text="POST" variant="caution" size="large" />
+> <Badge text="/logout" size="large" />
+
+The request ends the user's active session on the current device.
+
+## Request & Response Fields
+
+The `body` of the request can be empty, but you need to put the `access_token` in the request header, for example:
+
+<Tabs>
+  <TabItem label="Request & Header">
+    ```json 
+    { Authorization: `Bearer ${accessToken}` }
+    ```
+  </TabItem>
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{ "success": true }
+```
+  </TabItem>  
+</Tabs>
+
+<Aside>
+  If you do not pass an actual `refresh_token` in the http request credentials,
+  then use hard session cleanup using a web socket request.
+</Aside>
+
+## Old Websocket Requests <Badge text="Deprecated" variant="danger" size="large" />
+
+### Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_logout": {},
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{ "response": { "id": "RequestId", "success": true } }
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA Progressive AUTH flow"
+  href="https://medium.com/sama-communications/sama-progressive-auth-flow-b814206f6117"
+  description="During the last month 📆, we have been implementing and testing a new authorization flow for our API."
+/>
+<LinkCard
+  title="Progressive AUTH flow in Web apps"
+  href="https://medium.com/sama-communications/progressive-auth-flow-in-web-apps-495fb40c56dd"
+  description="In today’s digital landscape, balancing robust security with an effortless user experience is more crucial than ever. Enter Progressive AUTH — a dynamic approach to authentication that..."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

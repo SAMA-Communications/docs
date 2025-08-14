@@ -1,0 +1,123 @@
+---
+title: Edit Message
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Message" },
+    { text: "Edit" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="message_edit" size="large" />
+
+The `message_edit` request allowed the sender of the message to edit their own message with selected fields.
+
+## Request Parameters
+
+| Name   | Type     | Description                     |
+| ------ | -------- | ------------------------------- |
+| `id`   | `string` | Identifier of the message       |
+| `body` | `string` | New text content of the message |
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "id": "RequestId",
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "message_edit": {
+      "id": "63077ad836b78c3d82af0812",
+      "body": "updated message body"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+Then other users in this conversation who is online will receive the following message:
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "message_edit": {
+    "id": "63077ad836b78c3d82af0812",
+    "body": "updated message body",
+    "from": "634ec51c0b65918393dca5bf"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<Aside>
+  If users are offline, they will receive a message once became online.
+</Aside>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Messages"
+  href="https://medium.com/sama-communications/sama-chat-server-api-messages-dc00e9684dc0"
+  description="Based on ease of use, and with easy-to-understand documentation and articles on how to set up and use our APIs, we want to show that it is REAL to build communication into your application."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

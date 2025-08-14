@@ -1,0 +1,123 @@
+---
+title: Mark Messages as Read
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Message" },
+    { text: "Read" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="message_read" size="large" />
+
+The `message_read` request marks messages as read on the server and notifies other online users about this.
+
+## Request Parameters
+
+| Name  | Type            | Description                                |
+| ----- | --------------- | ------------------------------------------ |
+| `cid` | `string`        | Conversation ID where messages are located |
+| `ids` | `array[string]` | Array of messages that need to be marked   |
+
+<Aside>If `ids` is omit, we mark all unread messages as read.</Aside>
+
+## Response Fields
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "id": "RequestId",
+  "success": true
+}
+```
+  </TabItem>
+</Tabs>
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "message_read": {
+      "cid": "63077ad836b78c3d82af0812",
+      "ids": ["63480e68f4794709f802a2fa", "63077ad836b78c3d82af0866"]
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>
+</Tabs>
+
+<Aside type="caution">Conversation type `c` do not support read status.</Aside>
+
+Then, all the users whose messages we read will receive the following message:
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "message_read": {
+    "cid": "63077ad836b78c3d82af0812",
+    "ids": ["63480e68f4794709f802a2fa", "63077ad836b78c3d82af0866"],
+    "from": "634ec51c0b65918393dca5bf"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Messages"
+  href="https://medium.com/sama-communications/sama-chat-server-api-messages-dc00e9684dc0"
+  description="Based on ease of use, and with easy-to-understand documentation and articles on how to set up and use our APIs, we want to show that it is REAL to build communication into your application."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

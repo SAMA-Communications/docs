@@ -1,0 +1,74 @@
+---
+title: Send Typing Indicator
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Message" },
+    { text: "Typing" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="typing" size="large" />
+
+A user either can send typing or stop typing packets.
+
+<Tabs>
+  <TabItem label="Request & Event">
+```json
+{
+  "typing": {
+    "cid": "63077ad836b78c3d82af0812"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+Then other users in this conversation who is online will receive the same typing message.
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Messages"
+  href="https://medium.com/sama-communications/sama-chat-server-api-messages-dc00e9684dc0"
+  description="Based on ease of use, and with easy-to-understand documentation and articles on how to set up and use our APIs, we want to show that it is REAL to build communication into your application."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

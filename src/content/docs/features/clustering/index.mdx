@@ -1,0 +1,64 @@
+---
+title: Clustering
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Features" }, { text: "Clustering" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+The SAMA server supports clustering out of the box.  
+You can run a cluster across separate physical servers or on the same machine with multiple SAMA-server instances.
+
+## Setup Steps
+
+<Steps>
+
+1. **Run dependent services:**
+
+   Use the following command to start MongoDB, Minio, and Redis:
+
+   ```bash
+   docker-compose up
+   ```
+
+2. **Run multiple SAMA-server instances:**
+
+   - Option 1: Open multiple terminal consoles, run `npm run start` in each, and set the `APP_PORT` environment variable to a different value for each instance.
+   - Option 2: Remove the `APP_PORT` environment variable and run multiple nodes via PM2:
+
+   ```bash
+   pm2 start pm2.config.cjs
+   ```
+
+   The number of instances is defined by the `instances` value in the `pm2.config.cjs` file.
+
+3. **Set up Nginx balancer:**
+
+   1. Open `nginx/default.conf` and provide the IP addresses of all running nodes.  
+      If running locally, use your machine's private IPs, not `localhost` or `127.0.0.1`.
+   1. Start the Nginx balancer:
+
+   ```bash
+   docker-compose -f docker-compose-nginx-balancer.yml up --build
+   ```
+
+4. **Access the cluster:**
+
+   The cluster will be available on port `9000`. Point your SAMA-client to this port for testing.
+
+</Steps>

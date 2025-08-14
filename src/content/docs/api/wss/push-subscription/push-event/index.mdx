@@ -1,0 +1,112 @@
+---
+title: Push Event
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Push Subscriptions" },
+    { text: "Push Event" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="push_event_create" size="large" />
+
+The `push_event_create` request сreates a custom event to send.
+
+## Request Parameters
+
+| Name             | Type            | Description            |
+| ---------------- | --------------- | ---------------------- |
+| `recipients_ids` | `array[string]` | Array of recipient IDs |
+| `message`        | `object`        | Message object         |
+
+## Response Fields
+
+| Name                   | Type     | Description              |
+| ---------------------- | -------- | ------------------------ |
+| `event.message`        | `string` | Message in string format |
+| `event.recipients_ids` | `string` | Array of recipients IDs  |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "push_event_create": {
+      "recipients_ids": [
+        "644157e316eec28e3dfb8b31",
+        "644157e316eec28e3dfb8b32"
+      ],
+      "message": {
+        "title": "Title",
+        "body": "Message body"
+      }
+    },
+    "id": "RequestId",
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "event": {
+      "_id": "64415891066758fe6754f477",
+      "user_id": "64415890066758fe6754f472",
+      "recipients_ids": [
+        "644157e316eec28e3dfb8b31",
+        "644157e316eec28e3dfb8b32"
+      ],
+      "message": "{\"title\":\"Title\",\"body\":\"Message body\"}",
+      "created_at": "2025-08-13T05:51:44.733Z",
+      "updated_at": "2025-08-13T05:51:44.733Z"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

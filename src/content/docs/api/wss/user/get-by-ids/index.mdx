@@ -1,0 +1,110 @@
+---
+title: Get Users by IDs
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "User" },
+    { text: "Get by IDs" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="get_users_by_ids" size="large" />
+
+The `get_users_by_ids` request returns user objects by the requested IDs.
+
+## Request Parameters
+
+| Name  | Type            | Description   |
+| ----- | --------------- | ------------- |
+| `ids` | `array[string]` | Array of UIDs |
+
+## Response Fields
+
+| Name    | Type            | Description           |
+| ------- | --------------- | --------------------- |
+| `users` | `array[object]` | Array of user objects |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "get_users_by_ids": {
+      "ids": ["65fcb3f67dbaace5021595b9", "65fcb3f67dbaace502159222"]
+    },
+    "id": "4"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    id: "4",
+    "users": [
+      { "_id":"65fcb3f67dbaace5021595b9", ... },
+      {"_id": "65fcb3f67dbaace502159222", ...}
+    ]
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Users"
+  href="https://medium.com/sama-communications/sama-chat-server-api-users-edf65ea6a341"
+  description="All messengers and services that use instant messaging require minimal user identification in the system. We have developed a universal API..."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

@@ -1,0 +1,121 @@
+---
+title: Subscribe to Last Activity
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "Last Activity" },
+    { text: "Subscibe" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Aside, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="user_last_activity_subscribe" size="large" />
+
+The `user_last_activity_subscribe` request will allow you to subscribe to another user in order to track their activity status in real time.
+
+## Request Parameters
+
+| Name | Type     | Description |
+| ---- | -------- | ----------- |
+| `id` | `string` | User ID     |
+
+<Aside type="caution" title="Important">
+  You can only have one subscription, which means that the next one will cancel
+  the previous one.
+</Aside>
+
+## Response Fields
+
+| Name            | Type     | Description               |
+| --------------- | -------- | ------------------------- |
+| `last_activity` | `object` | Last user activity by UID |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_last_activity_subscribe": {
+      "id": "UID1"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "last_activity": {
+      "UID1": 0 | <last_activity-time>
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+Once that user will go offline/online, you will be receiving his/her last activity status:
+
+<Tabs>
+  <TabItem label="Event">
+```json
+"last_activity": {
+  "UID1":  0 | num_of_seconds
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Activities"
+  href="https://medium.com/sama-communications/sama-chat-server-api-activities-97b712b88671"
+  description="I think everyone has had a conversation where your opponent didn’t answer for a long time, and you didn’t know whether they were..."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

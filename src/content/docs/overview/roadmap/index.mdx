@@ -1,0 +1,41 @@
+---
+title: Roadmap
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Overview" }, { text: "Roadmap" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { LinkCard, Badge } from "@astrojs/starlight/components";
+
+## Roadmap
+
+- E2EE <Badge text="Soon" variant="caution" size="small"/>
+- XMPP interoperability <Badge text="Soon" variant="caution" size="small"/>
+- Complete messenger features support
+- System messages / PubSub
+- Conversational AI
+- Voice and Video Calling
+- Server extensibility via Lambda functions
+- ~Organizations~
+- ~Administration HTTP API~
+
+<br />
+
+<LinkCard
+  title="SAMA Roadmap"
+  href="https://github.com/SAMA-Communications/sama-server/blob/main/docs/ROADMAP.md"
+/>

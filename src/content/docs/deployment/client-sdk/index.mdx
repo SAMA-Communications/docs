@@ -1,0 +1,99 @@
+---
+title: npm@sama-communications/sdk
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Features" }, { text: "Client SDK" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps, LinkCard } from "@astrojs/starlight/components";
+
+A SDK client for interacting with the SAMA chat server from Web/Node.js apps.
+
+We’ve moved all the essential server interaction methods into a separate class. With these methods, you can seamlessly integrate the SDK into your project and use it in your existing components.
+
+<LinkCard
+  title="npm: @sama-communications/sdk"
+  href="https://www.npmjs.com/package/@sama-communications/sdk"
+/>
+
+## Demo
+
+This is a demo app to test all these methods https://app.samacloud.io/demo
+
+## How to Get Started
+
+<Steps>
+
+1.  Install packge to your app:
+
+    ```bash
+    npm install @sama-communications/sdk
+    ```
+
+2.  Create an SDK sample and store it in a variable:
+
+    ```js
+    import { SAMAClient } from "@sama-communications/sdk";
+
+    const config = {
+      endpoint: {
+        ws: "wss://your-websocket-url"
+        http: "https://your-websocket-url.com"
+      }
+    }
+
+    const client = new SAMAClient(config);
+    ```
+
+3.  All done. Try out the methods above.
+
+    ```js
+    client
+      .connect()
+      .then(() => {
+        console.log("Connected to the server");
+      })
+      .catch((error) => {
+        console.error("Failed to connect to the server:", error);
+      });
+
+    client
+      .userLogin({ login: "user_login", password: "user_password" })
+      .then((response) => {
+        console.log("User logged in:", response);
+      })
+      .catch((error) => {
+        console.error("Failed to log in:", error);
+      });
+    ```
+
+</Steps>
+
+## See Also
+
+<LinkCard
+  title="sama-client/.../api.ts"
+  href="https://github.com/SAMA-Communications/sama-client/blob/main/packages/sdk/src/api/api.ts"
+ description="Here you can find all the methods that are currently available."
+
+/>
+
+<LinkCard
+  title="SAMA Mar 2025 Updates: NEW SAMA SDK"
+  href="https://medium.com/sama-communications/sama-mar-2025-updates-new-sama-sdk-29c569acd861"
+  description="Interacting with the SAMA API just got way easier! 😀"
+/>

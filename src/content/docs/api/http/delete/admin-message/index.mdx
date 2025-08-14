@@ -1,0 +1,132 @@
+---
+title: Delete Admin Message
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "HTTP API" },
+    { text: "DELETE" },
+    { text: "/admin/message" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, Aside } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="DELETE" variant="danger" size="large" />
+> <Badge text="/admin/message" size="large" />
+
+Deletes one or more messages in a conversation. The deletion behavior depends on the `type` field:
+
+- `"myself"`: messages are deleted **only for the sender**
+- `"all"`: messages are deleted **for all participants**, and a real-time notification is sent to online users in the conversation.
+
+## Authorization
+
+<Tabs>
+  <TabItem label="Header">
+    ```json 
+    { Admin-Api-Key: {{ HTTP_ADMIN_API_KEY }} }
+    ```
+  </TabItem>
+</Tabs>
+
+## Request
+
+**Content-Type**: `application/json`
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "organizationId": "680a2fae96cc69d78861f101",
+  "senderId": "63480e68f4794709f802a2fa",
+  "messageDelete": {
+    "cid": "63077ad836b78c3d82af0815",
+    "ids": ["63077ad836b78c3d82af0812", "63077ad836b78c3d82af0813"],
+    "type": "myself"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Request Parameters
+
+| Field                | Type                | Description                                                        |
+| -------------------- | ------------------- | ------------------------------------------------------------------ |
+| `organizationId`     | `string`            | OrganizationId performing request                                  |
+| `senderId`           | `string`            | User ID performing the deletion                                    |
+| `messageDelete.cid`  | `string`            | Conversation ID                                                    |
+| `messageDelete.ids`  | `array[string]`     | List of Message IDs to delete                                      |
+| `messageDelete.type` | `"myself" \| "all"` | Deletion type: for sender only (`myself`) or for all users (`all`) |
+
+## Successful Response
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "success": true
+}
+```
+  </TabItem>  
+</Tabs>
+
+## Real-time Message
+
+<Aside type="tip" title="Additional information">
+  if `type: "all"`
+</Aside>
+
+<Tabs>
+  <TabItem label="Event">
+```json
+{
+  "message_delete": {
+    "cid": "63077ad836b78c3d82af0815",
+    "ids": ["63077ad836b78c3d82af0812", "63077ad836b78c3d82af0813"],
+    "type": "all",
+    "from": "634ec51c0b65918393dca5bf"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Aside>
+  If `type: "myself"` is used, the messages will be removed **only for the
+  `senderId`**. No real-time event is broadcast to other users.
+</Aside>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>

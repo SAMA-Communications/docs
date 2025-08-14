@@ -1,0 +1,62 @@
+---
+title: SAMA API
+tableOfContents: false
+hero:
+  tagline: Next-Gen open source chat server!
+  image:
+    file: ../../assets/images/sama-logo.svg
+    alt: A glittering, brightly colored logo
+  actions:
+    - text: Get started
+      link: /overview/quick-start
+      icon: right-arrow
+    - text: Our Landing Page
+      link: https://samacloud.io/
+      icon: external
+      variant: secondary
+---
+
+import Typewriter from "astro-typewriter";
+import { Card, CardGrid, LinkCard, Icon } from "@astrojs/starlight/components";
+
+import NodeJsIcon from "../../assets/icons/nodejs-icon.svg";
+import MongoDBIcon from "../../assets/icons/mongodb-icon.svg";
+import RedisIcon from "../../assets/icons/redis-icon.svg";
+import AWSIcon from "../../assets/icons/aws-icon.svg";
+
+# <Typewriter messages={["Stay connected anytime, anywhere.", "Built for scalability, trusted by professionals." ,"Secure, fast, and reliable communication for your business.", "Engineered for performance, designed for people.", "Your privacy — our top priority."]} />
+
+<CardGrid stagger>
+  <Card title="Websocket API" icon="puzzle">
+    <LinkCard title="Click Here" href="/api/wss/user/create/" />
+  </Card>{" "}
+  <Card title="Technology Stack" icon="codePen">
+    <div style="display: flex; justify-content: space-between; align-items:center;">
+      <span style="border: 1px solid var(--sl-color-gray-2); padding: 0.4rem; border-radius: 0.5rem">
+        <NodeJsIcon style="width: 40px; height: 40px; margin: 0;" />
+      </span>
+      <span style="border: 1px solid var(--sl-color-gray-2); padding: 0.4rem; border-radius: 0.5rem">
+        <RedisIcon style="width: 40px; height: 40px; margin: 0;" />
+      </span>
+      <span style="border: 1px solid var(--sl-color-gray-2); padding: 0.4rem; border-radius: 0.5rem">
+        <MongoDBIcon style="width: 40px; height: 40px; margin: 0;" />
+      </span>
+      <span style="border: 1px solid var(--sl-color-gray-2); padding: 0.4rem; border-radius: 0.5rem">
+        <AWSIcon style="width: 40px; height: 40px; margin: 0;" />
+      </span>
+      <a
+        href="/deployment/docker-server-setup/#useful-link"
+        alt="..."
+        style="border: 1px solid var(--sl-color-gray-2); padding: 0.4rem; border-radius: 0.5rem; cursor: pointer"
+      >
+        <Icon size="40px" name="right-arrow" />
+      </a>
+    </div>
+  </Card>
+  <Card title="Soon.." icon="setting">
+    Working tirelessly...
+  </Card>
+  <Card title="Programmable Chat Feature" icon="laptop">
+    <LinkCard title="Click Here" href="/features/programmable-chat" />
+  </Card>
+</CardGrid>

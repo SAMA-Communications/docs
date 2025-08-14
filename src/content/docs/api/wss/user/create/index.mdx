@@ -1,0 +1,134 @@
+---
+title: Create User
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[
+    { href: "/" },
+    { text: "API" },
+    { text: "User" },
+    { text: "Create" },
+  ]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Tabs, TabItem, Badge, LinkCard } from "@astrojs/starlight/components";
+
+## Description
+
+> <Badge text="wss" variant="tip" size="large" />
+> <Badge text="user_create" size="large" />
+
+The `user_create` request creates a new user.
+
+## Request Parameters
+
+| Name              | Type     | Description                           |
+| ----------------- | -------- | ------------------------------------- |
+| `organization_id` | `string` | **Identifier** of the organization    |
+| `login`           | `string` | Desired **login** name for the user   |
+| `password`        | `string` | **Password** for the new user account |
+| `email`           | `string` | User's **email** address              |
+| `phone`           | `string` | User's **phone** number               |
+
+## Response Fields
+
+| Name   | Type     | Description               |
+| ------ | -------- | ------------------------- |
+| `user` | `object` | Newly created user object |
+
+## Example
+
+<Tabs>
+  <TabItem label="Request">
+```json
+{
+  "request": {
+    "user_create": {
+      "organization_id": "63480e68f4794709f801a3fd",
+      "login": "User123",
+      "password": "UserPassword123"
+    },
+    "id": "RequestId"
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+<Tabs>
+  <TabItem label="Response">
+```json
+{
+  "response": {
+    "id": "RequestId",
+    "user": {
+      "_id": "63480e68f4794709f802a2fa",
+      "login": "User123",
+      "created_at": "2025-08-13T05:51:44.733Z",
+      "updated_at": "2025-08-13T05:51:44.733Z"
+    }
+  }
+}
+```
+  </TabItem>  
+</Tabs>
+
+## See Also
+
+<LinkCard
+  title="SAMA chat server API: Users"
+  href="https://medium.com/sama-communications/sama-chat-server-api-users-edf65ea6a341"
+  description="All messengers and services that use instant messaging require minimal user identification in the system. We have developed a universal API..."
+/>
+<LinkCard
+  title="DataBase Records"
+  href="/deployment/db-records/"
+  description="Collection of complete objects stored in the database."
+/>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="Oleksandr1414/cathedra-slytherin"
+  data-repo-id="R_kgDOI8uafg"
+  data-category="[ВВЕДІТЬ CATEGORY NAME]"
+  data-category-id="[ВВЕДІТЬ CATEGORY ID]"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="uk"
+  crossorigin="anonymous"
+  async
+></script>
