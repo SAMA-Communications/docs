@@ -19,7 +19,7 @@ export default defineConfig({
         }),
       ],
       title: "SAMA",
-      favicon: "/public/favicon.ico",
+      favicon: "/favicon.ico",
       customCss: ["./src/styles/custom.css"],
       logo: {
         light: "./src/assets/header-sama-light.svg",
@@ -314,14 +314,19 @@ export default defineConfig({
         {
           label: "Features",
           items: [
-            // { label: "Encryption", link: "/features/encryption/" },
+            {
+              label: "Encryption",
+              link: "/",
+              badge: { variant: "caution", text: { en: "Soon" } },
+            },
             { label: "Customization", link: "/features/customization/" },
             {
               label: "Programmable Chat",
               link: "/features/programmable-chat",
+              badge: { text: { en: "New" } },
             },
-            { label: "Dashboard", link: "/features/dashboard/" },
             { label: "Clustering", link: "/features/clustering/" },
+            { label: "Dashboard", link: "/features/dashboard/" },
             { label: "Load Testing", link: "/features/load-tests/" },
           ],
         },
