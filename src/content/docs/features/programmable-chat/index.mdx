@@ -75,7 +75,14 @@ The following arguments are provided:
 At the bottom of your script, you must always export the handler like this:
 
 ```jsx
- export default await handler(env.MESSAGE, env.USER, env.ACCEPT, env.RESOLVE, env.REJECT, env.FETCH);
+export default await handler(
+  env.MESSAGE,
+  env.USER,
+  env.ACCEPT,
+  env.RESOLVE,
+  env.REJECT,
+  env.FETCH
+);
 ```
 
 <Aside type="caution" title="Attention">
@@ -93,7 +100,6 @@ At the bottom of your script, you must always export the handler like this:
 ```jsx
 return accept();
 ```
-
 
 ### `resolve()`
 
@@ -124,7 +130,6 @@ return resolve(
 - If `isReplaceBody` is `true`, the original user message will be replaced with your version
 - If omitted or `false`, your message will appear **as a bot response**.
 
-
 ### `reject("reason")`
 
 - Blocks the message and shows the specified error string to the user.
@@ -133,11 +138,11 @@ return resolve(
 return reject("Message blocked due to inappropriate content.");
 ```
 
-<br/>
+<br />
 
 ---
 
-##  Default Handler Example
+## Default Handler Example
 
 Here is the default JavaScript example used for basic profanity filtering:
 
@@ -156,12 +161,22 @@ const handler = async (message, user, accept, resolve, reject, fetch) => {
 };
 
 // vvv Don`t remove or change the line below! vvv
-export default await handler( env.MESSAGE, env.USER, env.ACCEPT, env.RESOLVE, env.REJECT, env.FETCH);
+export default await handler(
+  env.MESSAGE,
+  env.USER,
+  env.ACCEPT,
+  env.RESOLVE,
+  env.REJECT,
+  env.FETCH
+);
 ```
 
-<Aside title="Info">This handler checks for banned words and rejects the message if any are found. Otherwise, it allows the message through.</Aside>
+<Aside title="Info">
+  This handler checks for banned words and rejects the message if any are found.
+  Otherwise, it allows the message through.
+</Aside>
 
-##  Testing the Code
+## Testing the Code
 
 You can test your logic directly on the page using the **Check** button:
 
@@ -177,14 +192,13 @@ You can test your logic directly on the page using the **Check** button:
 
 </Aside>
 
-##  Managing Your Script
+## Managing Your Script
 
--  **Save**
-    - Saves your current code to be executed on live messages.
--  **Options Dropdown**
-    - **Delete**: Removes the current chat handler entirely
-    - **Undo**: Restores the default code sample
-
+- **Save**
+  - Saves your current code to be executed on live messages.
+- **Options Dropdown**
+  - **Delete**: Removes the current chat handler entirely
+  - **Undo**: Restores the default code sample
 
 ## Tips & Warnings
 
@@ -198,7 +212,7 @@ You can test your logic directly on the page using the **Check** button:
   - Auto-formatting markdown or links
 - Avoid relying on `fetch` in test mode — use saved code to verify external logic
 
-##  FAQ
+## FAQ
 
 <Card title="Q: How do I block messages with bad words?" icon="open-book">
     >A: Use an array of words and check with `.some()` like in the default handler.
@@ -216,133 +230,140 @@ You can test your logic directly on the page using the **Check** button:
     >A: You can use `fetch` to call external APIs or services, but only in the saved handler — not during test mode, due to browser CORS restrictions. However, importing external JavaScript libraries (e.g., using `import` statements, CDN scripts, or npm packages) is **not supported**. You must rely on built-in JavaScript and browser APIs only.
 </Card>
 
-##  Examples
+## Examples
 
 <Steps>
 
 1. ### 👋 Auto-Greeting Detection
 
-    Responds with a welcome message when the user says hello.
+   Responds with a welcome message when the user says hello.
 
-    ```jsx
-    const handler = async (message, user, accept, resolve, reject, fetch) => {
-      const greetings = ["hi", "hello", "hey", "yo"];
-      const body = message.body.toLowerCase();
+   ```jsx
+   const handler = async (message, user, accept, resolve, reject, fetch) => {
+     const greetings = ["hi", "hello", "hey", "yo"];
+     const body = message.body.toLowerCase();
 
-      if (greetings.some((g) => body.startsWith(g))) {
-        return resolve({
-          message: {
-            body: `Hi ${user.first_name || "there"}! 👋 How can I help you today?`,
-          },
-        });
-      }
+     if (greetings.some((g) => body.startsWith(g))) {
+       return resolve({
+         message: {
+           body: `Hi ${
+             user.first_name || "there"
+           }! 👋 How can I help you today?`,
+         },
+       });
+     }
 
-      return accept();
-    };
-    ```
+     return accept();
+   };
+   ```
 
 2. ### 🖼️ Replace Keyword with Image Attachment
 
-    If the user types `:cat:`, send a cat image and replace their message.
+   If the user types `:cat:`, send a cat image and replace their message.
 
-    ```jsx
-    const handler = async (message, user, accept, resolve, reject, fetch) => {
-      if (message.body.trim() === ":cat:") {
-        const res = await fetch("https://api.thecatapi.com/v1/images/search");
-        const cat = (await res.json())[0];
-        return resolve(
-          {
-            message: {
-              body: "Here's a cat for you! 🐱",
-              attachments: [
-                {
-                  file_url: cat.url,
-                  file_content_type: "image/jpeg",
-                  file_width: cat.width,
-                  file_height: cat.height,
-                },
-              ],
-            },
-          },
-          { isReplaceBody: true }
-        );
-      }
+   ```jsx
+   const handler = async (message, user, accept, resolve, reject, fetch) => {
+     if (message.body.trim() === ":cat:") {
+       const res = await fetch("https://api.thecatapi.com/v1/images/search");
+       const cat = (await res.json())[0];
+       return resolve(
+         {
+           message: {
+             body: "Here's a cat for you! 🐱",
+             attachments: [
+               {
+                 file_url: cat.url,
+                 file_content_type: "image/jpeg",
+                 file_width: cat.width,
+                 file_height: cat.height,
+               },
+             ],
+           },
+         },
+         { isReplaceBody: true }
+       );
+     }
 
-      return accept();
-    };
+     return accept();
+   };
+   ```
 
 3. ### 🕵️‍♂️ Spoiler Filter
 
-    Blocks messages that mention spoilers.
+   Blocks messages that mention spoilers.
 
-    ```jsx
-    const handler = async (message, user, accept, resolve, reject, fetch) => {
-      const body = message.body.toLowerCase();
-      const spoilers = [
-        "snape kills dumbledore",
-        "bruce willis was dead",
-        "tony dies",
-      ];
+   ```jsx
+   const handler = async (message, user, accept, resolve, reject, fetch) => {
+     const body = message.body.toLowerCase();
+     const spoilers = [
+       "snape kills dumbledore",
+       "bruce willis was dead",
+       "tony dies",
+     ];
 
-      if (spoilers.some((line) => body.includes(line))) {
-        return reject("🚫 Spoiler detected! Your message was blocked.");
-      }
+     if (spoilers.some((line) => body.includes(line))) {
+       return reject("🚫 Spoiler detected! Your message was blocked.");
+     }
 
-      return accept();
-    };
-    ```
+     return accept();
+   };
+   ```
 
 4. ### 🔗 Replace All Links with "[link]"
 
-    Detects and redacts URLs in the message text.
+   Detects and redacts URLs in the message text.
 
-    ```jsx
-    const handler = async (message, user, accept, resolve, reject, fetch) => {
-      const urlRegex = /https?:\/\/[^\s]+/g;
-      const newBody = message.body.replace(urlRegex, "[link]");
+   ```jsx
+   const handler = async (message, user, accept, resolve, reject, fetch) => {
+     const urlRegex = /https?:\/\/[^\s]+/g;
+     const newBody = message.body.replace(urlRegex, "[link]");
 
-      return resolve({ message: { body: newBody } }, { isReplaceBody: true });
-    };
-    ```
+     return resolve({ message: { body: newBody } }, { isReplaceBody: true });
+   };
+   ```
 
 5. ### 🔊 Normalize Caps Lock
 
-    If the user is shouting in all caps, convert the message to lowercase.
+   If the user is shouting in all caps, convert the message to lowercase.
 
-    ```jsx
-    const handler = async (message, user, accept, resolve, reject, fetch) => {
-      const body = message.body;
+   ```jsx
+   const handler = async (message, user, accept, resolve, reject, fetch) => {
+     const body = message.body;
 
-      if (body === body.toUpperCase() && body.length > 5) {
-        return resolve(
-          {
-            message: { body: body.toLowerCase() },
-          },
-          { isReplaceBody: true }
-        );
-      }
+     if (body === body.toUpperCase() && body.length > 5) {
+       return resolve(
+         {
+           message: { body: body.toLowerCase() },
+         },
+         { isReplaceBody: true }
+       );
+     }
 
-      return accept();
-    };
-    ```
+     return accept();
+   };
+   ```
 
 6. ### ✨ Auto-format Messages
 
-    Replaces `:emoji:` style codes with actual emojis.
+   Replaces `:emoji:` style codes with actual emojis.
 
-    ```jsx
-    const handler = async (message, user, accept, resolve, reject, fetch) => {
-      const body = message.body;
-      const transformed = body.replace(/:smile:/g, "😄").replace(/:fire:/g, "🔥");
+   ```jsx
+   const handler = async (message, user, accept, resolve, reject, fetch) => {
+     const body = message.body;
+     const transformed = body
+       .replace(/:smile:/g, "😄")
+       .replace(/:fire:/g, "🔥");
 
-      return resolve({ message: { body: transformed } }, { isReplaceBody: true });
-    };
-    ```
+     return resolve(
+       { message: { body: transformed } },
+       { isReplaceBody: true }
+     );
+   };
+   ```
 
 7. > ✏️ Want more examples or want to share your own? Let us know in [Discord](https://discord.gg/ye68KMgA2f) or contribute via [GitHub](https://github.com/SAMA-Communications/programmable-chat).
 
 </Steps>
-
 
 <LinkCard
   title="GitHub - SAMA-Communications/programmable-chat"
@@ -375,7 +396,7 @@ You can test your logic directly on the page using the **Check** button:
   data-reactions-enabled="1"
   data-emit-metadata="0"
   data-input-position="bottom"
-  data-theme="preferred_color_scheme"
+  data-theme="transparent_dark"
   data-lang="uk"
   crossorigin="anonymous"
   async

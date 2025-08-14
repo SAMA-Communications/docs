@@ -1,7 +1,20 @@
 {
-  "name": "starlight",
+  "name": "sama_docs",
+  "description": "SAMA API Documentation",
+  "version": "0.1.0",
   "type": "module",
-  "version": "0.0.1",
+  "homepage": "https://github.com/SAMA-Communications/docs#readme",
+  "keywords": [
+    "starlight",
+    "astro",
+    "docs",
+    "chat",
+    "chat-application",
+    "client",
+    "client-app"
+  ],
+  "licaense": "Apache-2.0",
+  "author": "Igor Khomenko",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -16,6 +29,7 @@
     "astro-typewriter": "^1.1.0",
     "react": "^19.1.1",
     "sharp": "^0.34.2",
+    "starlight-cooler-credit": "^0.4.0",
     "starlight-theme-rapide": "^0.5.1"
   }
 }

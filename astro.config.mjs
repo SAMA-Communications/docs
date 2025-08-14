@@ -1,11 +1,23 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightThemeRapide from "starlight-theme-rapide";
+import starlightCoolerCredit from "starlight-cooler-credit";
 
 export default defineConfig({
   integrations: [
     starlight({
-      plugins: [starlightThemeRapide()],
+      plugins: [
+        starlightThemeRapide(),
+        starlightCoolerCredit({
+          customImage: "./src/assets/sama-credit-snake.svg",
+          customImageAlt: "BuyMeACoffee",
+          credit: {
+            href: "https://buymeacoffee.com/khomenkoigor",
+            title: { en: "Enjoing SAMA API?" },
+            description: { en: "Support us with a small or big donation!" },
+          },
+        }),
+      ],
       title: "SAMA",
       favicon: "/public/favicon.ico",
       customCss: ["./src/styles/custom.css"],
@@ -38,11 +50,6 @@ export default defineConfig({
           icon: "github",
           label: "GitHub",
           href: "https://github.com/SAMA-Communications/sama-server",
-        },
-        {
-          icon: "rocket",
-          label: "Help us!",
-          href: "https://buymeacoffee.com/khomenkoigor",
         },
       ],
       sidebar: [
