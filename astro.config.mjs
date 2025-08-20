@@ -264,50 +264,32 @@ export default defineConfig({
           collapsed: true,
           items: [
             {
-              label: "POST",
-              collapsed: true,
-              items: [
-                {
-                  label: "/admin/message",
-                  link: "/api/http/post/admin-message/",
-                },
-                {
-                  label: "/admin/message/system",
-                  link: "/api/http/post/admin-message-system/",
-                },
-                {
-                  label: "/admin/activity/online",
-                  link: "/api/http/post/admin-activity-online/",
-                },
-              ],
+              label: "Send Message",
+              link: "/api/http/send-message/",
             },
             {
-              label: "PUT",
-              collapsed: true,
-              items: [
-                {
-                  label: "/admin/message/read",
-                  link: "/api/http/put/admin-message-read/",
-                },
-                {
-                  label: "/admin/message",
-                  link: "/api/http/put/admin-message/",
-                },
-                {
-                  label: "/admin/message/reaction",
-                  link: "/api/http/put/admin-message-reaction/",
-                },
-              ],
+              label: "Send System Message",
+              link: "/api/http/send-system-message/",
             },
             {
-              label: "DELETE",
-              collapsed: true,
-              items: [
-                {
-                  label: "/admin/message",
-                  link: "/api/http/delete/admin-message/",
-                },
-              ],
+              label: "Mark Message As Read",
+              link: "/api/http/mark-message-as-read/",
+            },
+            {
+              label: "Update Message",
+              link: "/api/http/update-message/",
+            },
+            {
+              label: "Add Message Reaction",
+              link: "/api/http/add-message-reaction/",
+            },
+            {
+              label: "Get Online Users List",
+              link: "/api/http/get-online-users-list/",
+            },
+            {
+              label: "Delete Message",
+              link: "/api/http/delete-message/",
             },
           ],
         },
