@@ -75,21 +75,27 @@ export default defineConfig({
           label: "Deployment",
           items: [
             {
-              label: "Manual Server Setup",
+              label: "Manual Setup",
               link: "/deployment/manual-server-setup/",
             },
             {
-              label: "Docker Server Setup",
+              label: "Docker",
               link: "/deployment/docker-server-setup/",
             },
-
-            { label: "DataBase Records", link: "/deployment/db-records/" },
           ],
         },
         { label: "SDK", items: [{ link: "/sdk/js/", label: "JS SDK" }] },
         {
           label: "API",
           items: [
+            {
+              label: "Introduction",
+              items: [
+                { label: "Introduction", link: "/api/wss/introduction/" },
+                { label: "Data Models", link: "/api/wss/data-models/" },
+              ],
+            },
+
             {
               label: "User",
               collapsed: true,
