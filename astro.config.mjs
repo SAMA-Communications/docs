@@ -86,7 +86,7 @@ export default defineConfig({
         },
         { label: "SDK", items: [{ link: "/sdk/js/", label: "JS SDK" }] },
         {
-          label: "API",
+          label: "Websocket API",
           items: [
             {
               label: "Introduction",
@@ -273,6 +273,10 @@ export default defineConfig({
           label: "HTTP API",
           collapsed: true,
           items: [
+            {
+              label: "Introduction",
+              link: "/api/http/introduction/",
+            },
             {
               label: "Send Message",
               link: "/api/http/send-message/",

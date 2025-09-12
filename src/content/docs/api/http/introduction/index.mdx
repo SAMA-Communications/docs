@@ -1,5 +1,5 @@
 ---
-title: Websocket API Introduction
+title: HTTP API Introduction
 ---
 
 <br />
@@ -21,14 +21,10 @@ import "astro-breadcrumbs/breadcrumbs.css";
 
 import { Steps, LinkCard, Card, CardGrid } from "@astrojs/starlight/components";
 
-Welcome to SAMA Chat Server API - set of clearly defined methods of communication among various components:
+## Overview
 
-- Users
-- Conversations
-- Messages
-- Push notifications
-- Storage
-- Address book
-- Programmable Chat
+SAMA Chat Server provide HTTPS API - a set of administrative-pourpose methods to perform various operations within server.
 
-API documentation describes what services an API offers and how to use those services.
+## Authorization
+
+Each request to HTTPS API must contain `Admin-Api-Key` header which is equal to `HTTP_ADMIN_API_KEY` env.
