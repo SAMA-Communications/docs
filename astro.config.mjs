@@ -308,23 +308,26 @@ export default defineConfig({
           ],
         },
         {
-          label: "Features",
+          label: "Dashboard",
+          items: [{ label: "Overview", link: "/dashboard/" }],
+        },
+        {
+          label: "Programmable Chat",
+          badge: { text: { en: "New" } },
           items: [
             {
-              label: "Encryption",
-              link: "/",
-              badge: { variant: "caution", text: { en: "Soon" } },
+              label: "Overview",
+              link: "/programmable-chat/",
             },
-            { label: "Customization", link: "/features/customization/" },
-            {
-              label: "Programmable Chat",
-              link: "/features/programmable-chat",
-              badge: { text: { en: "New" } },
-            },
-            { label: "Clustering", link: "/features/clustering/" },
-            { label: "Dashboard", link: "/features/dashboard/" },
-            { label: "Load Testing", link: "/features/load-tests/" },
           ],
+        },
+        {
+          label: "Server Clustering",
+          items: [{ label: "Overview", link: "/clustering/" }],
+        },
+        {
+          label: "Load Tests",
+          items: [{ label: "Overview", link: "/load-tests/" }],
         },
         {
           label: "GitHub",
