@@ -189,21 +189,24 @@ export default defineConfig({
               ],
             },
             {
-              label: "Push Subscription",
+              label: "Push Notifications",
               collapsed: true,
               items: [
                 {
-                  label: "Create",
-                  link: "/api/wss/push-subscription/create/",
-                },
-                { label: "List", link: "/api/wss/push-subscription/list/" },
-                {
-                  label: "Delete",
-                  link: "/api/wss/push-subscription/delete/",
+                  label: "Create Subscription",
+                  link: "/api/wss/push-notifications/create/",
                 },
                 {
-                  label: "Push Event",
-                  link: "/api/wss/push-subscription/push-event/",
+                  label: "List Subscriptions",
+                  link: "/api/wss/push-notifications/list/",
+                },
+                {
+                  label: "Delete Subscription",
+                  link: "/api/wss/push-notifications/delete/",
+                },
+                {
+                  label: "Send Push",
+                  link: "/api/wss/push-notifications/push-event/",
                 },
               ],
             },
@@ -212,8 +215,8 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  label: "Info",
-                  link: "/api/wss/carbons/info",
+                  label: "Overview",
+                  link: "/api/wss/carbons/overview",
                 },
               ],
             },
@@ -222,7 +225,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  label: "Get by IDs",
+                  label: "Get User Activity",
                   link: "/api/wss/last-activity/get-by-ids/",
                 },
                 {
@@ -232,12 +235,12 @@ export default defineConfig({
               ],
             },
             {
-              label: "Operation Logs",
+              label: "Operations Log",
               collapsed: true,
               items: [
                 {
-                  label: "Info",
-                  link: "/api/wss/operation-logs/info",
+                  label: "Retrieve Log",
+                  link: "/api/wss/operations-log/retrieve",
                 },
               ],
             },
@@ -246,11 +249,11 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  label: "Create Upload URL",
+                  label: "Upload File",
                   link: "/api/wss/files/create-upload-url/",
                 },
                 {
-                  label: "Get Download URL",
+                  label: "Get File URL",
                   link: "/api/wss/files/get-download-url/",
                 },
               ],
