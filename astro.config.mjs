@@ -13,12 +13,12 @@ export default defineConfig({
           customImageAlt: "BuyMeACoffee",
           credit: {
             href: "https://buymeacoffee.com/khomenkoigor",
-            title: { en: "Enjoing SAMA API?" },
+            title: { en: "Enjoying SAMA API?" },
             description: { en: "Support us with a small or big donation!" },
           },
         }),
       ],
-      title: "SAMA",
+      title: "SAMA chat server",
       favicon: "/favicon.ico",
       customCss: ["./src/styles/custom.css"],
       logo: {
@@ -82,10 +82,11 @@ export default defineConfig({
               label: "Docker Server Setup",
               link: "/deployment/docker-server-setup/",
             },
-            { label: "Client-Side SDK", link: "/deployment/client-sdk/" },
+
             { label: "DataBase Records", link: "/deployment/db-records/" },
           ],
         },
+        { label: "SDK", items: [{ link: "/sdk/js/", label: "JS SDK" }] },
         {
           label: "API",
           items: [
