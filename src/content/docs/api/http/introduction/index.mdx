@@ -1,0 +1,30 @@
+---
+title: HTTP API Introduction
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Overview" }, , { text: "Getting Started" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps, LinkCard, Card, CardGrid } from "@astrojs/starlight/components";
+
+## Overview
+
+SAMA Chat Server provide HTTPS API - a set of administrative-pourpose methods to perform various operations within server.
+
+## Authorization
+
+Each request to HTTPS API must contain `Admin-Api-Key` header which is equal to `HTTP_ADMIN_API_KEY` env.

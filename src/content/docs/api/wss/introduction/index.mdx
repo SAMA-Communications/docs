@@ -1,0 +1,34 @@
+---
+title: Websocket API Introduction
+---
+
+<br />
+
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { Icon } from "@astrojs/starlight/components";
+
+import "astro-breadcrumbs/breadcrumbs.css";
+
+<Breadcrumbs
+  linkTextFormat="capitalized"
+  crumbs={[{ href: "/" }, { text: "Overview" }, , { text: "Getting Started" }]}
+>
+  <Icon slot="index" name="seti:powershell" />
+  <span slot="separator">&nbsp;&nbsp;/&nbsp;</span>
+</Breadcrumbs>
+
+---
+
+import { Steps, LinkCard, Card, CardGrid } from "@astrojs/starlight/components";
+
+Welcome to SAMA Chat Server API - set of clearly defined methods of communication among various components:
+
+- Users
+- Conversations
+- Messages
+- Push notifications
+- Storage
+- Address book
+- Programmable Chat
+
+API documentation describes what services an API offers and how to use those services.

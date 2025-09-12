@@ -13,12 +13,12 @@ export default defineConfig({
           customImageAlt: "BuyMeACoffee",
           credit: {
             href: "https://buymeacoffee.com/khomenkoigor",
-            title: { en: "Enjoing SAMA API?" },
+            title: { en: "Enjoying SAMA API?" },
             description: { en: "Support us with a small or big donation!" },
           },
         }),
       ],
-      title: "SAMA",
+      title: "SAMA chat server",
       favicon: "/favicon.ico",
       customCss: ["./src/styles/custom.css"],
       logo: {
@@ -75,20 +75,27 @@ export default defineConfig({
           label: "Deployment",
           items: [
             {
-              label: "Manual Server Setup",
+              label: "Manual Setup",
               link: "/deployment/manual-server-setup/",
             },
             {
-              label: "Docker Server Setup",
+              label: "Docker",
               link: "/deployment/docker-server-setup/",
             },
-            { label: "Client-Side SDK", link: "/deployment/client-sdk/" },
-            { label: "DataBase Records", link: "/deployment/db-records/" },
           ],
         },
+        { label: "SDK", items: [{ link: "/sdk/js/", label: "JS SDK" }] },
         {
-          label: "API",
+          label: "Websocket API",
           items: [
+            {
+              label: "Introduction",
+              items: [
+                { label: "Introduction", link: "/api/wss/introduction/" },
+                { label: "Data Models", link: "/api/wss/data-models/" },
+              ],
+            },
+
             {
               label: "User",
               collapsed: true,
@@ -182,21 +189,24 @@ export default defineConfig({
               ],
             },
             {
-              label: "Push Subscription",
+              label: "Push Notifications",
               collapsed: true,
               items: [
                 {
-                  label: "Create",
-                  link: "/api/wss/push-subscription/create/",
-                },
-                { label: "List", link: "/api/wss/push-subscription/list/" },
-                {
-                  label: "Delete",
-                  link: "/api/wss/push-subscription/delete/",
+                  label: "Create Subscription",
+                  link: "/api/wss/push-notifications/create/",
                 },
                 {
-                  label: "Push Event",
-                  link: "/api/wss/push-subscription/push-event/",
+                  label: "List Subscriptions",
+                  link: "/api/wss/push-notifications/list/",
+                },
+                {
+                  label: "Delete Subscription",
+                  link: "/api/wss/push-notifications/delete/",
+                },
+                {
+                  label: "Send Push",
+                  link: "/api/wss/push-notifications/push-event/",
                 },
               ],
             },
@@ -205,8 +215,8 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  label: "Info",
-                  link: "/api/wss/carbons/info",
+                  label: "Overview",
+                  link: "/api/wss/carbons/overview",
                 },
               ],
             },
@@ -215,7 +225,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  label: "Get by IDs",
+                  label: "Get User Activity",
                   link: "/api/wss/last-activity/get-by-ids/",
                 },
                 {
@@ -225,12 +235,12 @@ export default defineConfig({
               ],
             },
             {
-              label: "Operation Logs",
+              label: "Operations Log",
               collapsed: true,
               items: [
                 {
-                  label: "Info",
-                  link: "/api/wss/operation-logs/info",
+                  label: "Retrieve Log",
+                  link: "/api/wss/operations-log/retrieve",
                 },
               ],
             },
@@ -239,11 +249,11 @@ export default defineConfig({
               collapsed: true,
               items: [
                 {
-                  label: "Create Upload URL",
+                  label: "Upload File",
                   link: "/api/wss/files/create-upload-url/",
                 },
                 {
-                  label: "Get Download URL",
+                  label: "Get File URL",
                   link: "/api/wss/files/get-download-url/",
                 },
               ],
@@ -263,6 +273,10 @@ export default defineConfig({
           label: "HTTP API",
           collapsed: true,
           items: [
+            {
+              label: "Introduction",
+              link: "/api/http/introduction/",
+            },
             {
               label: "Send Message",
               link: "/api/http/send-message/",
@@ -294,23 +308,26 @@ export default defineConfig({
           ],
         },
         {
-          label: "Features",
+          label: "Dashboard",
+          items: [{ label: "Overview", link: "/dashboard/" }],
+        },
+        {
+          label: "Programmable Chat",
+          badge: { text: { en: "New" } },
           items: [
             {
-              label: "Encryption",
-              link: "/",
-              badge: { variant: "caution", text: { en: "Soon" } },
+              label: "Overview",
+              link: "/programmable-chat/",
             },
-            { label: "Customization", link: "/features/customization/" },
-            {
-              label: "Programmable Chat",
-              link: "/features/programmable-chat",
-              badge: { text: { en: "New" } },
-            },
-            { label: "Clustering", link: "/features/clustering/" },
-            { label: "Dashboard", link: "/features/dashboard/" },
-            { label: "Load Testing", link: "/features/load-tests/" },
           ],
+        },
+        {
+          label: "Server Clustering",
+          items: [{ label: "Overview", link: "/clustering/" }],
+        },
+        {
+          label: "Load Tests",
+          items: [{ label: "Overview", link: "/load-tests/" }],
         },
         {
           label: "GitHub",
