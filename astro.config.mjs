@@ -3,6 +3,72 @@ import starlight from "@astrojs/starlight";
 import starlightThemeRapide from "starlight-theme-rapide";
 import starlightCoolerCredit from "starlight-cooler-credit";
 
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const DOCS_DIR = "src/content/docs";
+
+const rawMarkdownExporter = {
+  name: "starlight-raw-md",
+  hooks: {
+    "astro:build:done": async ({ dir }) => {
+      // console.log("dir", dir);
+      const outRoot = fileURLToPath(dir);
+      // console.log("outRoot", outRoot);
+
+      if (!fs.existsSync(DOCS_DIR)) {
+        console.warn(`[starlight-raw-md] Skipped: "${DOCS_DIR}" not found.`);
+        return;
+      }
+
+      let count = 0;
+      for (const file of walk(DOCS_DIR)) {
+        if (!/\.mdx?$/.test(file)) continue;
+        // console.log("file", file);
+
+        const relFromDocs = path.relative(DOCS_DIR, file);
+
+        const route = routeFromDocsPath(relFromDocs);
+
+        // console.log("route", { relFromDocs, route });
+        const outDir = path
+          .join(outRoot, route.toLowerCase())
+          .replaceAll(" ", "-");
+
+        // console.log("outDir", outDir);
+
+        fs.mkdirSync(outDir, { recursive: true });
+
+        const src = fs.readFileSync(file, "utf-8");
+        fs.writeFileSync(path.join(outDir, "index.html.md"), src);
+        count++;
+      }
+
+      console.log(
+        `[starlight-raw-md] Exported ${count} Markdown files to /raw/**`
+      );
+    },
+  },
+};
+
+function* walk(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      yield* walk(full);
+    } else {
+      yield full;
+    }
+  }
+}
+
+function routeFromDocsPath(relFromDocs) {
+  const norm = relFromDocs.replaceAll("\\", "/");
+  if (norm.endsWith("/index.md") || norm.endsWith("/index.mdx"))
+    return path.posix.dirname(norm);
+  return norm.replace(/\.mdx?$/, "");
+}
+
 export default defineConfig({
   integrations: [
     starlight({
@@ -349,5 +415,6 @@ export default defineConfig({
         },
       ],
     }),
+    rawMarkdownExporter,
   ],
 });
