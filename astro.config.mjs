@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import starlightLlmsTxt from "starlight-llms-txt";
 import starlightThemeRapide from "starlight-theme-rapide";
 import starlightCoolerCredit from "starlight-cooler-credit";
 
@@ -70,9 +71,11 @@ function routeFromDocsPath(relFromDocs) {
 }
 
 export default defineConfig({
+  site: "https://docs.samacloud.io/",
   integrations: [
     starlight({
       plugins: [
+        starlightLlmsTxt(),
         starlightThemeRapide(),
         starlightCoolerCredit({
           customImage: "./src/assets/sama-credit-snake.svg",
